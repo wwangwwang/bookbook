@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/cart/cart-list.css">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<script src="/js/cart/cart-list.js"></script>
+</head>
+<main>
+	<div th:with="totalAmount=0">
+        <h1>장바구니</h1>
+        <div class="progress-bar">
+            <div class="circle active">
+            	<i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+                <div class="label">장바구니</div>
+            </div>
+            <div class="line"></div>
+            <div class="circle">
+            	<i class="fa-regular fa-credit-card"></i>
+                <div class="label">주문/결제</div>
+            </div>
+            <div class="line"></div>
+            <div class="circle">
+            	<i class="fa-solid fa-clipboard-check"></i>
+                <div class="label">주문완료</div>
+            </div>
+        </div>
+        <div class="flex j-center all">
+	        <table class="left-section">
+	            <thead>
+	                <tr>
+	                    <th class="book-info-text">제품정보</th>
+	                    <th>수량</th>
+	                    <th style="width: 120px;">결제금액</th>
+	                    <th style="width: 110px;">주문</th>
+	                </tr>
+	            </thead>
+	            <tbody id="cartList">
+	                <tr th:each="cartDetail : ${cartDetails}"
+	                	th:with="itemAmount=${cartDetail.discount != null && cartDetail.cartCnt != null ? cartDetail.discount * cartDetail.cartCnt : 0},
+                         totalAmount=${totalAmount + itemAmount}"
+                        th:data-cart-detail-num="${cartDetail.cartDetailNum}">
+	                    <td class="product-info book-info-text">
+	                        <img th:src="${cartDetail.bookImg}" class="book-cover-img">
+	                        <div class="book-info">
+	                            <p th:text="${cartDetail.bookName}">해리포터와 마법사의 돌 1</p>
+	                            <p th:text="${cartDetail.author}">J.K 롤링 저 / 강동혁 역</p>
+	                        </div>
+	                    </td>
+	                    <td >
+	                    	<span th:text="|${cartDetail.cartCnt}개|">1개</span>
+	                    	<div class="quantity-control" style="display: none">
+							    <button type="button" class="quantity-btn decrement">-</button>
+							    <input type="text" class="quantity-input" value="1" min="1" readonly>
+							    <button type="button" class="quantity-btn increment">+</button>
+							</div>
+	                    </td>
+	                    <td class="price" 
+	                    	th:text="|${#numbers.formatDecimal(itemAmount, 0, 'COMMA', 0, 'NONE')}원|"
+	                    	th:attr="data-unit-price=${itemAmount}">17,000원</td>
+	                    <td>
+	                        <form class="buy-buttons">
+	                            <button class="btn change-quantity-btn" type="button">수량 변경</button>
+					            <div class="cancel-confirm-buttons" style="display: none;">
+					                <button class="btn cancel-btn" type="button">취소</button>
+					                <button class="btn confirm-btn" type="button">확인</button>
+					            </div>
+	                            <button id="delete-btn" class="btn delete" th:onclick="|deleteCartItem(${cartDetail.cartDetailNum});|">삭제</button>
+	                        </form>
+	                    </td>
+	                </tr>
+	                <tr th:if="${#lists.isEmpty(cartDetails)}">
+	                	<td colspan="5">
+		                	<i class="fa-solid fa-circle-info"></i>
+		                	<span>장바구니에 담긴 상품이 없습니다.</span>
+	                	</td>
+	                </tr>
+	            </tbody>
+	        </table>
+	        
+	        <div class="payment-summary">
+			    <p><span>상품 금액</span> <span class="price all-price">0 원</span></p>
+			    <p>
+			    	<span>배송비</span> 
+			    	<span class="price" th:unless="${#lists.isEmpty(cartDetails)}">3000 원</span>
+			    	<span class="price" th:if="${#lists.isEmpty(cartDetails)}">0 원</span>
+			    </p>
+			    <p><span>상품 할인</span> <span class="price">- 0 원</span></p>
+			    <p><span>쿠폰 할인</span> <span class="price">- 0 원</span></p>
+			    <hr>
+			    <p>최종 결제 금액 <span class="final-amount">0 원</span></p>
+			    <button class="side-btn" onclick="window.location.href='/';">쇼핑하러가기</button>
+            	<button class="side-btn" onclick="window.location.href='/payment';">선택상품 구매</button>
+            	<button class="side-btn btn-active" onclick="paymentAll()">전체상품 구매</button>
+			</div>
+	    </div>
+    </div>
+    
+</main>
+</html>

@@ -1,0 +1,55 @@
+.box {
+	border: 1px solid #ddd;
+	margin: 20px;
+	border-radius: 5px;
+}
+
+.form-header {
+	margin: 30px;
+}
+
+.profile-header {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+
+.info-pic {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #888;
+	margin-right: 15px;
+}
+
+.memo > p{
+	font-size: 17px;
+}
+
+.username {
+	font-weight: bold;
+	margin-right: 5px;
+}
+.id {
+	background-color: #f0f0f0;
+	padding: 2px 5px;
+	border-radius: 3px;
+	margin-right: 10px;
+}
+
+.subscription {
+	color: green;
+	margin-right: 10px;
+}
+
+.line {
+	border-bottom: 1px solid #ccc;
+	padding: 20px;
+	margin: 10px;
+}
+.memo {
+	font-size: 16px;
+	margin: 50px;
+}

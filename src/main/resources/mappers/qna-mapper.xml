@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.project.bookbook.mapper.QNAMapper">
+
+	<select id="findAll" parameterType="long" resultType="com.project.bookbook.domain.dto.QNADTO">
+		select * 
+		from qna
+		where user_id = #{userId}
+		order by qna_num desc
+	</select>
+	
+	<insert id="save" parameterType="com.project.bookbook.domain.dto.QNACreateDTO">
+		insert into qna (user_id, title, content, qna_type, date)
+		values (#{dto.userId}, #{dto.title}, #{dto.content}, #{dto.qnaType}, current_timestamp)
+	</insert>
+	
+	<select id="findQna" parameterType="long" resultType="com.project.bookbook.domain.dto.QNADTO">
+		select *
+		from qna
+		where qna_num = #{qnaNum}
+	</select>
+	
+	<select id="findAnswer" parameterType="long" resultType="com.project.bookbook.domain.dto.QNAAnswerDTO">
+		select *
+		from qna_answer
+		where qna_num = #{qnaNum}
+	</select>
+	
+	<delete id="deleteAnswer" parameterType="long">
+		delete from qna_answer
+		where qna_num = #{qnaNum};
+	</delete>
+	
+	<delete id="deleteQna" parameterType="long">
+		delete from qna
+		where qna_num = #{qnaNum};
+	</delete>
+	
+</mapper>

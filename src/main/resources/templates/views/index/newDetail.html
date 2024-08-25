@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{views/commons/layout::layout(~{::head} ,~{::main} ) }">
+<head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="/css/mainContent/detail.css" />
+<link rel="stylesheet" href="/css/mainContent/review.css" />
+<script src="/js/mainContent/review.js"></script>
+<script src="/js/mainContent/detail.js"></script>
+<script src="/js/admin/starRating.js"></script>
+<script src="/js/mainContent/averageRating.js"></script>
+<script src="/js/mainContent/cartItemButton.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+<body>
+	<main class="container">
+		<div class="book-details">
+			<div class="book-image">
+				<img th:if="${book}" th:src="${book.image}" th:alt="${book.title}">
+			</div>
+			<div class="book-info">
+				<ul class="book-categories">
+					<li>이벤트</li>
+					<li>무료배송</li>
+					<li>베스트셀러</li>
+				</ul>
+				<h1 class="bookTitle" th:if="${book}" th:text="${book.title}">책
+					제목</h1>
+				<p class="book-author" th:if="${book}"
+					th:text="${book.author + ' 저'}">저자</p>
+				<p class="book-publisher" th:if="${book}"
+					th:text="${book.publisher}">출판사</p>
+				<p class="book-date" th:if="${book}" th:text="${book.pubdate}">출판일</p>
+				<div class="book-rating" th:data-isbn="${book.isbn}">
+					<div>
+						<span class="stars" th:data-rating="${book.averageRating}"> </span>
+						<span class="rating-score"></span>
+					</div>
+
+					<p class="review-count" th:text="|리뷰 ${book.reviewCount}개|">리뷰
+						2개</p>
+				</div>
+				<p class="book-price">
+					<span class="price" th:if="${book}"
+						th:data-price="${book.discount}"
+						th:text="|${#numbers.formatInteger(book.discount,3,'COMMA')} 원|">할인가</span>
+				</p>
+				<div class="delivery-info">
+					<h3>배송 정보</h3>
+					<p>
+						<strong>배송비</strong> 무료 (해외배송 일부 지역에 따라 상이)
+					</p>
+					<p>
+						<strong>배송안내</strong> 서울 종로구 새문안로 배송보고
+					</p>
+				</div>
+				<div class="quantity-selector">
+					<button class="decrease">-</button>
+					<input type="text" name="quantity" value="1" readonly>
+					<button class="increase">+</button>
+					<span class="total-price" th:if="${book}"
+						th:text="${book.discount + '원'}">총 가격</span>
+				</div>
+				<div class="action-buttons">
+					<form th:action="@{/api/books/cartItem}" method="post"
+						class="cart-form" onsubmit="return addToCartItems(this,event)">
+						<input type="hidden" name="isbn" th:value="${book.isbn}" /> <input
+							type="hidden" name="quantity" value="1" />
+						<button type="submit" class="action-button cart-button">장바구니</button>
+					</form>
+					<button class="action-button buy-now">바로구매</button>
+					<button class="action-button add-to-wishlist">알림신청</button>
+				</div>
+			</div>
+		</div>
+
+		<div>
+			<div>
+				<h3>책 소개</h3>
+			</div>
+			<div class="bookContent">
+				<p th:text="${book.description}">책 설명</p>
+			</div>
+		</div>
+		<div th:replace="~{views/index/review.html}"></div>
+	</main>
+</body>
+</html>

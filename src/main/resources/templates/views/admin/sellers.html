@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/css/admin/commons.css">
+    <link rel="stylesheet" href="/css/admin/sidebar.css">
+    <script src="/js/admin/sidebar.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>출판사 관리</title>
+</head>
+
+<body>
+    <div style="display: flex;">
+        <th:block th:insert="~{views/admin/sidebar}" />
+        <div class="container">
+            <h1>출판사 관리</h1>
+			<div class="Search-box">
+				<label>고객검색</label>
+				<form th:action="@{/admin/sellers}" method="get">
+					<input type="text" name="shopName" placeholder="출판사 이름 검색"
+						th:value="${param.shopName}">
+					<button type="submit">검색</button>
+				</form>
+			</div>
+			<div class="inven-box">
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>회원 번호 </th>
+                            <th>출판사 이름</th>
+                            <th>출판사 번호</th>
+                            <th>사업자</th>
+                            <th>사업자 번호</th>
+                            <th>은행</th>
+                            <th>계좌 번호</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="seller : ${sellers}">
+                            <td th:text="${seller.sellerId}"></td>
+                            <td><a th:href="@{/admin/sellers/detail/{id}(id=${seller.sellerId})}" th:text="${seller.shopName}" class="no-style"></a></td>
+                            <td th:text="${seller.telNum}"></td>
+                            <td th:text="${seller.userName}"></td>
+                            <td th:text="${seller.businessNum}"></td>
+                            <td th:text="${seller.bank}"></td>
+                            <td th:text="${seller.account}"></td>
+                            
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

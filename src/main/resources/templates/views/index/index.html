@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{views/commons/layout::layout(~{::head} ,~{::main} ) }">
+<head>
+<script src="/js/mainContent/bannerCartMore.js"></script>
+<link rel="stylesheet" href="/css/mainContent/main_content.css"/>
+</head>
+<body>
+	<main>
+		<!--메인 자동 슬라이더 배너  -->
+		<div class="slider-container">
+
+			<div class="slider" aria-live="polite">
+				<div class="slide" aria-hidden="true" data-src="img/mainbanner1.jpg"></div>
+				<div class="slide" aria-hidden="true" data-src="img/mainbanner6.jpg"></div>
+				<div class="slide" aria-hidden="true" data-src="img/mainbanner3.jpg"></div>
+				<div class="slide" aria-hidden="true" data-src="img/mainbanner4.jpg"></div>
+				<div class="slide" aria-hidden="true" data-src="img/mainbanner5.jpg"></div>
+			</div>
+			<button class="prev" aria-label="Previous slide">&lt;</button>
+			<button class="next" aria-label="Next slide">&gt;</button>
+			<div class="indicators"></div>
+		</div>
+		<div th:replace="~{views/index/bookSlider.html}"></div>
+	</main>
+	
+</body>
+</html>

@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bookbook Dashboard</title>
+<link rel="stylesheet" href="/css/admin/sidebar.css">
+<link rel="stylesheet" href="/css/admin/index.css">
+<script src="/js/admin/sidebar.js"></script>
+<script src="/js/admin/starRating.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+</head>
+
+<body>
+	<div class="index">
+		<div style="display: flex;">
+			<th:block th:insert="~{views/admin/sidebar}" />
+			<div class="content">
+				<div class="grid-container">
+					<div class="grid-item">
+						<div id="monthly-sales-chart" style="width: 680px; height: 420px;"></div>
+					</div>
+					<div class="grid-item">
+						<div id="weekly-sales-chart" style="width: 680px; height: 420px;"></div>
+					</div>
+					<div class="grid-item box">
+						<div>
+							<h3>문의 내용</h3>
+						</div>
+						<div class="inven-box">
+							<table class="order-table">
+								<thead>
+									<tr>
+										<th>상태</th>
+										<th>제목</th>
+										<th>작성일</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="dto, iterStat : ${list}"
+										th:if="${iterStat.index < 8}">
+										<td th:if="${dto.status==1}" class="status-finish">답변완료</td>
+										<td th:if="${dto.status==0}" class="status">답변대기</td>
+										<td th:text="${dto.title}"></td>
+										<td th:text="${dto.date.toLocalDate()}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="grid-item box">
+						<div>
+							<h3>리뷰 목록</h3>
+						</div>
+						<div class="inven-box">
+							<table class="order-table">
+								<thead>
+									<tr>
+										<th>작성자</th>
+										<th>제목</th>
+										<th>별점</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="review : ${reviews}"
+										th:id="'review-' + ${review.reviewNum}" class="review-item">
+										<td th:text="${review.username}"></td>
+										<td th:text="${review.reviewContent}"></td>
+										<td><span th:id="'stars-' + ${review.reviewNum}"
+											th:data-rating="${review.rate}" class="star-rating"></span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	// 임시 데이터
+	var monthlySalesData = [ {
+		period : '1월',
+		sales : 120
+	}, {
+		period : '2월',
+		sales : 150
+	}, {
+		period : '3월',
+		sales : 180
+	}, {
+		period : '4월',
+		sales : 200
+	}, {
+		period : '5월',
+		sales : 220
+	}, {
+		period : '6월',
+		sales : 170
+	}, {
+		period : '7월',
+		sales : 210
+	}, {
+		period : '8월',
+		sales : 190
+	}, {
+		period : '9월',
+		sales : 230
+	}, {
+		period : '10월',
+		sales : 240
+	}, {
+		period : '11월',
+		sales : 260
+	}, {
+		period : '12월',
+		sales : 300
+	} ];
+
+	var weeklySalesData = [ {
+		period : '1주',
+		sales : 30
+	}, {
+		period : '2주',
+		sales : 50
+	}, {
+		period : '3주',
+		sales : 45
+	}, {
+		period : '4주',
+		sales : 60
+	} ];
+
+	// 월별 판매 차트
+	var monthlySalesChart = echarts.init(document
+			.getElementById('monthly-sales-chart'));
+	var monthlySalesOption = {
+		title : {
+			text : '월별 판매량'
+		},
+		tooltip : {
+			trigger : 'item',
+			formatter : '{a} <br/>{b} : ({d}%)'
+		},
+		series : [ {
+			name : 'Sales',
+			type : 'pie',
+			data : monthlySalesData.map(function(item) {
+				return {
+					value : item.sales,
+					name : item.period
+				};
+			}),
+			label : {
+				formatter : '{b}: ({d}%)'
+			}
+		} ]
+	};
+	monthlySalesChart.setOption(monthlySalesOption);
+
+	// 주간 판매 차트
+	var weeklySalesChart = echarts.init(document
+			.getElementById('weekly-sales-chart'));
+	var weeklySalesOption = {
+		title : {
+			text : '주간 판매량'
+		},
+		tooltip : {},
+		xAxis : {
+			type : 'category',
+			data : weeklySalesData.map(function(item) {
+				return item.period;
+			})
+		},
+		yAxis : {
+			type : 'value'
+		},
+		series : [ {
+			type : 'bar',
+			data : weeklySalesData.map(function(item) {
+				return item.sales;
+			})
+		} ]
+	};
+	weeklySalesChart.setOption(weeklySalesOption);
+</script>
+
+</html>

@@ -1,0 +1,192 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f0f0f0;
+}
+
+img {
+	width: 30%;
+}
+
+.container {
+	width: 100%;
+	background-color: white;
+	padding: 20px;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+	margin: 20px;
+}
+
+.container h1 {
+	padding: 20px
+}
+
+.search-box {
+	background-color: white;
+	border: 0.5px solid #d9d9d9;
+}
+
+.search-box, .inven-box {
+	margin: 20px;
+}
+
+.search-section, .filter-section {
+	margin: 20px;
+}
+
+.filter-section {
+	margin-bottom: 20px;
+	white-space: nowrap;
+}
+
+label {
+	width: 100px;
+	font-weight: bold;
+	margin-right: 10px;
+}
+
+.filter-section input {
+	margin-right: 10px;
+}
+
+.jump {
+	margin-right: 26px;
+}
+
+.long {
+	width: 500px;
+}
+
+input, select, button {
+	padding: 5px;
+	margin: 5px;
+}
+
+button {
+	background-color: white;
+	border: 1px solid #a9a9a9;
+	padding: 7px 15px;
+}
+
+.btns {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 20px;
+}
+
+.delete-btn {
+	display: flex;
+	justify-content: flex-end;
+	margin: 10px;
+}
+
+.inven-box {
+	padding: 20px;
+	background-color: white;
+	border: 0.5px solid #d9d9d9;
+	white-space: nowrap;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th {
+	font-weight: bold;
+	background-color: #f2f2f2;
+}
+
+th, td {
+	border: 1px solid #ddd;
+	padding: 8px;
+	text-align: left;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	text-align: center;
+}
+
+td {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 150px;
+}
+
+.action-buttons button {
+	margin: 5px;
+}
+
+.pagination-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px; /* 원하는 상단 여백 */
+    }
+
+
+.stars {
+	color: #ffd700;
+	font-size: 24px;
+}
+
+.Search-box {
+    background-color: white;
+    border: 0.5px solid #d9d9d9;
+    margin: 20px;
+    padding: 20px;
+}
+
+.Search-box label {
+    width: 100px;
+    font-weight: bold;
+    margin-right: 10px;
+    display: inline-block;
+}
+
+.Search-box form {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.Search-box input[type="text"] {
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid #ced4da;
+    flex-grow: 1;
+}
+
+.Search-box button {
+    background-color: white;
+    border: 1px solid #a9a9a9;
+    padding: 7px 15px;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.Search-box button:hover {
+    background-color: #f0f0f0;
+}
+
+@media (max-width: 768px) {
+    .Search-box form {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .Search-box input[type="text"] {
+        width: calc(100% - 10px);
+        margin-bottom: 10px;
+    }
+
+    .Search-box button {
+        width: 100%;
+    }
+}
+
+button:hover {
+    background-color: #f0f0f0;
+}
+

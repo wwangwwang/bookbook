@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<link rel="stylesheet" href="/css/admin/commons.css">
+	<link rel="stylesheet" href="/css/admin/sidebar.css">
+	<script src="/js/admin/sidebar.js"></script>
+	<script src="/js/admin/commons.js"></script>
+	<script src="/js/admin/inventory.js"></script>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Product Management</title>
+
+
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/seller/sidebar}" />
+
+		<div class="container">
+			<h1>상품 관리</h1>
+			<div class="search-box">
+				<div class="search-section">
+					<div class="filter-section">
+						<label for="search" class="jump">검색분류</label>
+						<select id="search">
+							<option>상품명</option>
+							<option>상품코드</option>
+							<option>출판사</option>
+						</select>
+						<input type="text" placeholder="검색어 입력">
+					</div>
+
+
+					<div class="filter-section">
+						<label class="jump">상품분류</label>
+						<select>
+							<option>- 출판사 선택 -</option>
+						</select>
+						<select>
+							<option>- 장르 선택 -</option>
+						</select>
+						<select>
+							<option>- 작가 선택 -</option>
+						</select>
+					</div>
+					<div class="filter-section">
+						<label>상품등록일</label>
+						<input type="date" id="startDate"> ~ <input type="date" id="endDate">
+					</div>
+					<div class="filter-section">
+						<label class="jump">판매상태</label>
+						<input type="radio" name="sale" checked> 전체
+						<input type="radio" name="sale"> 판매중
+						<input type="radio" name="sale"> 판매비활성
+					</div>
+
+				</div>
+				<div class="btns">
+					<button class="search-btn">검색</button>
+					<button>초기화</button>
+				</div>
+			</div>
+
+
+			<div class="inven-box">
+				<div class="action-buttons">
+					<button>삭제</button>
+					<button>비활성화</button>
+				</div>
+
+
+				<table>
+					<thead>
+						<tr>
+							<th><input type="checkbox" id="select-item"></th>
+							<th>도서번호</th>
+							<th>제목</th>
+							<th>상품</th>
+							<th>저자</th>
+							<th>출판사</th>
+							<th>바로구매 URL</th>
+							<th>판매가</th>
+							<th>상태</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="dto : ${list}">
+							<td><input type="checkbox" class="select-item"></td>
+							<td th:text="${dto.bookNum}"></td>
+							<td th:text="${dto.bookName}"></td>
+							<td><img th:src="${dto.bookImg}"></td>
+							<td th:text="${dto.author}"></td>
+							<td th:text="${dto.publisher}"></td>
+							<td th:text="${dto.link}"></td>
+							<td th:text="${dto.discount}"></td>
+							<td>
+								<form th:action="|/seller/inventory/${dto.bookNum}|"
+									onsubmit="return btnDeleteClicked()" method="post">
+									<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+									<input type="hidden" name="_method" value="delete">
+									<button type="submit">삭제</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="pagination" class="pagination-container"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

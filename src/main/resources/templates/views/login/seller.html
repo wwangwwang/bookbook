@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>도서 상품 등록 - 관리자 페이지</title>
+    <link rel="stylesheet" href="/css/login/seller.css">
+</head>
+
+<body>
+    <div class="wrapper">
+        <nav class="sidebar">
+        <img src="/img/logo7.png" style="width:80%;">
+            <h2>판매자 메뉴</h2>
+            <ul>
+                <li><a href="#" class="active">상품 관리</a></li>
+                <li><a href="#">고객 관리</a></li>
+                <li><a href="#">댓글 관리</a></li>
+                <li><a href="#">주문 관리</a></li>
+                <li><a href="#">리뷰 관리</a></li>
+                <li><a href="#">문의 관리</a></li>      
+                <li><a href="#">프로모션 및 쿠폰</a></li>
+                <li><a href="#">클라우드(가이드)</a></li>
+                         
+            </ul>
+        </nav>
+        <main class="content">
+            <h1>도서 상품 등록</h1>
+            <form id="bookForm">
+                <div class="form-group">
+                    <label for="title">제목:</label>
+                    <input type="text" id="title" name="title" required>
+                </div>
+                <div class="form-group">
+                    <label for="author">저자:</label>
+                    <input type="text" id="author" name="author" required>
+                </div>
+                <div class="form-group">
+                    <label for="price">가격:</label>
+                    <input type="number" id="price" name="price" required>
+                </div>
+                <div class="form-group">
+                    <label for="isbn">ISBN:</label>
+                    <input type="text" id="isbn" name="isbn" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">설명:</label>
+                    <textarea id="description" name="description" rows="4" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="coverImage">표지 이미지:</label>
+                    <input type="file" id="coverImage" name="coverImage" accept="image/*" required>
+                </div>
+                <div class="button-container">
+            <button type="submit">등록</button>
+        </div>
+            </form>
+        </main>
+    </div>
+    <script src="/js/login/seller.js"></script>
+</body>
+</html>

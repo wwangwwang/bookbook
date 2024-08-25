@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/mypage/sidebar.css">
+	<link rel="stylesheet" href="/css/mypage/question.css">
+</head>
+<main>
+	<div class="flex">
+        <th:block  th:insert="~{views/mypage/sidebar}"/>
+        <div class="main-content">
+            <div class="container-main">
+		        <div class="head">
+		            <h1>1:1 문의내역</h1>
+		            <button class="head-btn" onclick="window.location.href='/mypage/questions/detail';">1:1 문의하기</button>
+		        </div>
+		        <div class="tabs">
+		            <button class="tab active" onclick="openTab(event, 'all')">전체</button>
+		            <button class="tab" onclick="openTab(event, 'inProgress')">답변대기</button>
+		            <button class="tab" onclick="openTab(event, 'answered')">답변완료</button>
+		        </div>
+		        <div class="content">
+		            <div id="all" class="tabcontent">
+		                <table>
+		                    <tr>
+		                        <th>문의내용</th>
+		                        <th>날짜</th>
+		                        <th>상태</th>
+		                    </tr>
+		                    <tr th:each="dto : ${list}">
+		                        <td><a th:text="${dto.title}" th:href="|/mypage/questions/${dto.qnaNum}|">제목</a></td>
+		                        <td th:text="${dto.date.toLocalDate()}">날짜</td>
+		                        <td th:if="${dto.status==1}" class="status-finish">답변완료</td>
+		                        <td th:if="${dto.status==0}" class="status">답변대기</td>
+		                    </tr>
+		                </table>
+		            </div>
+		            <div id="inProgress" class="tabcontent">
+		                <table>
+		                    <tr>
+		                        <th>문의내용</th>
+		                        <th>날짜</th>
+		                        <th>상태</th>
+		                    </tr>
+		                    <tr th:each="dto : ${list}">
+		                        <td th:if="${dto.status==0}" th:text="${dto.title}" th:href="|/mypage/questions/${dto.qnaNum}|">제목</td>
+		                        <td th:if="${dto.status==0}" th:text="${dto.date.toLocalDate()}">날짜</td>
+		                        <td th:if="${dto.status==0}" class="status">답변대기</td>
+		                    </tr>
+		                </table>
+		            </div>
+		            <div id="answered" class="tabcontent">
+		                <table>
+		                    <tr>
+		                        <th>문의내용</th>
+		                        <th>날짜</th>
+		                        <th>상태</th>
+		                    </tr>
+		                    <tr th:each="dto : ${list}">
+		                        <td th:if="${dto.status==1}" th:text="${dto.title}" th:href="|/mypage/questions/${dto.qnaNum}|">제목</td>
+		                        <td th:if="${dto.status==1}" th:text="${dto.date.toLocalDate()}">날짜</td>
+		                        <td th:if="${dto.status==1}" class="status-finish">답변완료</td>
+		                    </tr>
+		                </table>
+		            </div>
+		            
+		            <div th:if="${#lists.isEmpty(list)}" class="no-orders-div">
+		            	<p class="no-orders">
+		            		<i class="fa-solid fa-circle-info"></i>
+		            		<span>문의 내역이 없습니다.</span>
+		            	</p>
+		            </div>
+		        </div>
+		    </div>
+        </div>
+    </div>
+    <script src="/js/mypage/question.js"></script>
+</main>
+</html>

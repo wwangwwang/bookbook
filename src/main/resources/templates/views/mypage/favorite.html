@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+    <link rel="stylesheet" href="/css/mypage/sidebar.css">
+    <link rel="stylesheet" href="/css/mypage/favorite.css">
+    <script src="https://cdn.jsdelivr.net/npm/echarts/dist/echarts.min.js"></script>
+    <script>
+		function btnDeleteClicked(){
+			return confirm("정말로 삭제하시겠습니까?");
+		}
+	</script>
+</head>
+<main>
+    <div class="flex">
+        <th:block  th:insert="~{views/mypage/sidebar}"/>
+        <div class="main-content">
+            <div class="container-main">
+                <div class="head">
+                    <h1>나의 취향</h1>
+                </div>
+                
+                <section class="favorite-header">
+                	<div class="chart-container">
+                		<div class="chart-text">
+	                		<span class="chart-name">관심있는 장르</span>
+	                		<span class="chart-info">실결제, 찜하기, 장바구니에 담은 책 기준</span>
+                		</div>
+	                	<div id="chart1" class="chart"></div>
+	                </div>
+                	<div class="chart-container">
+                		<div class="chart-text bar-chart">
+	                		<span class="chart-name">이달의 구매 현황</span>
+	                		<span class="chart-info">구매한 책의 장르</span>
+                		</div>
+	                	<div id="chart2" class="chart"></div>
+	                </div>
+                </section>
+                
+                <section class="wish-list">
+				    <div class="wish-text">
+				        <span class="chart-name">찜 목록</span>
+				    </div>
+				    <div class="book-grid">
+				        <div class="book-item" th:each="favorite : ${favorites}">
+				            <div class="img-container">
+				                <div class="flip-box">
+				                    <img class="front" th:src="${favorite.bookImg}">
+				                    <form class="back" th:action="|/mypage/favorites/${favorite.bookNum}|" onsubmit="return btnDeleteClicked()" method="post">
+				                    	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+										<input type="hidden" name="_method" value="delete">
+				                    	<button><i class="fa-regular fa-trash-can"></i></button>
+				                    </form>
+				                </div>
+				            </div>
+				            <h3 th:text="${favorite.bookName}">책 제목</h3>
+				            <p th:text="${favorite.author}">저자</p>
+				        </div>
+				    </div>
+				    <div th:if="${#lists.isEmpty(favorites)}" class="no-order-block">
+		            	<p class="no-orders">
+		            		<i class="fa-solid fa-circle-info"></i>
+		            		<span>위시리스트에 담긴 상품이 없습니다.</span>
+		            	</p>
+		            </div>
+				</section>
+				
+            </div>
+        </div>
+    </div>
+    <script src="/js/mypage/favorite.js"></script>
+</main>
+</html>

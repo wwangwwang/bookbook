@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/admin/commons.css">
+	<link rel="stylesheet" href="/css/admin/sidebar.css">
+	<script src="/js/admin/sidebar.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/admin/sidebar}" />
+		<div class="container">
+			<h1>출판사 회원 등록</h1>
+			<div class="search-box">
+				<div class="search-section">
+					<div class="filter-section">
+						<label for="search">문의검색</label>
+						<select id="search">
+							<option>전체</option>
+							<option>출판사명</option>
+							<option>ID</option>
+						</select>
+						<input type="text" id="searchInput">
+					</div>
+					<div class="filter-section">
+						<label for="search" class="jump2">작성기간</label>
+						<input type="date" id="startDate"> ~ <input type="date" id="endDate">
+					</div>
+					<div class="filters">
+						<div class="filter-section">
+							<label>문의상태</label>
+							<input type="radio" name="status" checked> 전체
+							<input type="radio" name="status"> 승인 대기
+							<input type="radio" name="status"> 승인 완료
+							<input type="radio" name="status"> 승인 거부
+						</div>
+						<div class="btns">
+							<button class="search-btn">검색</button>
+							<button>초기화</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="inven-box">
+				<table class="order-table">
+					<thead>
+						<tr>
+
+							<th>출판사 이름</th>
+							<th>제목</th>
+							<th>연락처</th>
+							<th>사업자 번호</th>
+							<th>등록증</th>
+							<th>입금계좌</th>
+							<th>대표자명</th>
+							<th>상태</th>
+							<th>승인 작업</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+
+							<td>북북출판사</td>
+							<td><a href="#">안녕하세요 북북 출판사입니다.</a></td>
+							<td>010-0000-0000</td>
+							<td>000-00-00000</td>
+							<td><a href="#">보기</a></td>
+							<td>NH농협) 000000-00-000000</td>
+							<td>김북북</td>
+							<td>승인 대기</td>
+							<td>
+								<button>승인</button><button>거부</button>
+							</td>
+						</tr>
+						<tr>
+
+							<td>북북출판사</td>
+							<td><a href="#">안녕하세요 북북 출판사입니다.</a></td>
+							<td>010-0000-0000</td>
+							<td>000-00-00000</td>
+							<td><a href="#">보기</a></td>
+							<td>NH농협) 000000-00-000000</td>
+							<td>김북북</td>
+							<td>승인 대기</td>
+							<td>
+								<button>승인</button><button>거부</button>
+							</td>
+						</tr>
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

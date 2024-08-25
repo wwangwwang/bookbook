@@ -1,0 +1,25 @@
+<html xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<div class="sidebar">
+    <div class="profile-section">
+        <div class="profile-pic">😊</div>
+        <div class="profile-info">
+            <div sec:authorize="hasRole('ROLE_USER')"><b th:text="|${#authentication.principal.name}님|">이름</b></div>
+            <a href="/mypage/favorites">
+	            <span class="wish">찜 <b th:text="${favorites != null ? #lists.size(favorites) : 0}">0 </b> </span>
+	            <span class="favorite-find"> 내 취향</span>
+            </a>
+        </div>
+    </div>
+    <ul class="menu">
+        <li class="menu-main">마이페이지</li>
+        <li><a href="/mypage/coupons">쿠폰</a></li>
+        <li><a href="/mypage/favorites">나의 취향</a></li>
+        <li><a href="/mypage/account">회원 정보</a></li>
+        <li><a href="/mypage/account/delete">회원 탈퇴</a></li>
+        <li><a href="/mypage/questions">1:1 문의 내역</a></li>
+        <li class="menu-main">주문내역</li>
+        <li><a href="/mypage/orders">주문/배송목록</a></li>
+        <li><a href="/mypage/orders/exchange">교환/환불 목록</a></li>
+        <li><a href="/mypage/orders/cancel">취소 목록</a></li>
+    </ul>
+</div>

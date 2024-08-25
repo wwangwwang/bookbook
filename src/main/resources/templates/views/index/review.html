@@ -1,0 +1,48 @@
+<div class="container">
+	<div class="line">
+		<h1>제품 리뷰</h1>
+		<button id="writeReviewBtn" class="btn save">리뷰 작성</button>
+	</div>
+	<div class="review-tabs">
+		<button id="allReviewsBtn" class="btn active">전체 리뷰</button>
+		<button id="buyerReviewsBtn" class="btn">구매자 리뷰</button>
+	</div>
+	<div id="reviewList" class="review-list">
+		<div th:each="review : ${reviews}" class="review-item">
+			<div class="review-header">
+				<h3 th:text="${review.username}">[사용자명]</h3>
+				<div class="stars-display">
+					<!-- 리뷰 별점 표시 -->
+					<span th:id="'stars-' + ${review.reviewNum}"
+								th:data-rating="${review.rate}" class="star-rating"></span></td>
+				</div>
+			</div>
+			<p th:text="${review.reviewContent}">[리뷰 내용]</p>
+		</div>
+
+	</div>
+</div>
+
+<!-- 리뷰 작성 모달 -->
+<div id="reviewModal" class="modal" style="display: none;">
+	<div class="modal-content">
+		<span class="close">&times;</span>
+		<h2>리뷰 작성</h2>
+		<form id="reviewForm" method="post">
+			<input type="hidden" id="bookIsbn" name="isbn"
+				th:value="${book.isbn}">
+			<div class="rating">
+				<input type="radio" id="star5" name="rate" value="5" /><label
+					for="star5">☆</label> <input type="radio" id="star4" name="rate"
+					value="4" /><label for="star4">☆</label> <input type="radio"
+					id="star3" name="rate" value="3" /><label for="star3">☆</label> <input
+					type="radio" id="star2" name="rate" value="2" /><label for="star2">☆</label>
+				<input type="radio" id="star1" name="rate" value="1" /><label
+					for="star1">☆</label>
+			</div>
+			<textarea id="reviewContent" name="reviewContent"
+				placeholder="리뷰 내용을 입력해주세요" required></textarea>
+			<button type="submit" class="btn save">제출</button>
+		</form>
+	</div>
+</div>

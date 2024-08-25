@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>클라우드</title>
+    <link rel="stylesheet" href="/css/admin/commons.css">
+    <link rel="stylesheet" href="/css/admin/sidebar.css">
+    <script src="/js/admin/sidebar.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+    <div style="display: flex;">
+        <th:block th:insert="~{views/admin/sidebar}" />
+        <div class="container">
+            <h1>드라이브 상세 파일 목록</h1>
+            <div class="inven-box">
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>파일 이름</th>
+                            <th>파일 크기</th>
+                            <th>파일 타입</th>
+                            <th>생성 날짜</th>
+                            <th>수정 날짜</th>
+                            <th>다운로드</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="file : ${files}" th:if="${files != null and not #lists.isEmpty(files)}">
+                            <td th:text="${file.fileName}"></td>
+                            <td th:text="${#numbers.formatDecimal(file.fileSize / 1024, 0, 'COMMA', 2, 'POINT')} + ' KB'"></td>
+                            <td th:text="${file.fileType}"></td>
+                            <td th:text="${#temporals.format(T(java.time.LocalDateTime).parse(file.createdTime.substring(0, 19)), 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${#temporals.format(T(java.time.LocalDateTime).parse(file.modifiedTime.substring(0, 19)), 'yyyy-MM-dd HH:mm')}"></td>
+                            <td>
+                                <a th:href="@{/admin/drive/files/download(fileId=${file.fileId})}"
+                                   class="btn-download">다운로드</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

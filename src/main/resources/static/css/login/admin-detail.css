@@ -1,0 +1,45 @@
+.customer-detail {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+}
+
+.customer-info, .customer-stats {
+    width: 48%;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.customer-info h2, .customer-stats h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.customer-info p, .customer-stats p {
+    margin-bottom: 10px;
+}
+
+.customer-actions {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.customer-actions button {
+     padding: 8px 12px;
+    margin-right: 10px;
+    background-color: #6c757d; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.customer-actions button:hover {
+    background-color: #5a6268; 
+}
+
+

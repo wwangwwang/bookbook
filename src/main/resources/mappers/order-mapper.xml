@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bookbook.mapper.OrdersMapper">
+	
+	<insert id="insertUserOrder" parameterType="map">
+		insert into user_orders (merchant_uid, order_date, user_id)
+		values (#{merchantUid}, CURRENT_TIMESTAMP, #{userId})
+	</insert>
+	
+	<insert id="insertUserOrdersDetail" parameterType="map">
+		insert into user_orders_detail (merchant_uid, book_num, order_cnt)
+		values (#{merchantUid}, #{bookNum}, #{cartCnt})
+	</insert>
+	
+	<select id="findByOrderBook" parameterType="long" resultType="com.project.bookbook.domain.dto.OrderDetailDTO">
+		SELECT 
+		    b.book_num,
+		    uod.order_cnt,
+		    b.book_name,
+		    b.book_img,
+		    b.author,
+		    b.discount,
+		    b.stock
+		FROM 
+		    book b
+		JOIN 
+		    user_orders_detail uod
+		ON 
+		    b.book_num = uod.book_num
+		WHERE 
+		    uod.merchant_uid = ${merchantUid}
+	</select>
+	
+	<select id="findByOrderBookOne" parameterType="long" resultType="com.project.bookbook.domain.dto.OrderDetailDTO">
+		SELECT 
+		    b.book_num,
+		    uod.order_cnt,
+		    b.book_name,
+		    b.book_img,
+		    b.author,
+		    b.discount,
+		    b.stock
+		FROM 
+		    book b
+		JOIN 
+		    user_orders_detail uod
+		ON 
+		    b.book_num = uod.book_num
+		WHERE 
+		    uod.merchant_uid = ${merchantUid}
+		ORDER BY 
+        	uod.book_num ASC
+		LIMIT 1
+	</select>
+	
+	<update id="orderCompletion" parameterType="com.project.bookbook.domain.dto.PaymentPostDTO">
+		UPDATE user_orders
+	    SET coupon_num = #{couponNum},
+	        order_status = 1,
+	        paid_amount = #{paidAmount}
+	    WHERE merchant_uid = #{merchantUid}
+	</update>
+	
+	<update id="orderCompletionNoCoupon" parameterType="com.project.bookbook.domain.dto.PaymentPostDTO">
+		UPDATE user_orders
+	    SET order_status = 1,
+	        paid_amount = #{paidAmount}
+	    WHERE merchant_uid = #{merchantUid}
+	</update>
+	
+	<select id="findByMerchantUid" parameterType="long" resultType="com.project.bookbook.domain.dto.OrdersDetailDTO">
+		select * from user_orders
+		where merchant_uid = #{merchantUid}
+	</select>
+	
+	<select id="findByUserId" parameterType="long" resultType="com.project.bookbook.domain.dto.UserOrderDTO">
+		select * from user_orders
+		where user_id = #{userId} and order_status != 0
+		order by order_date desc
+	</select>
+	
+	
+</mapper>

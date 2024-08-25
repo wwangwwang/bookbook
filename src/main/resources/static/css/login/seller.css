@@ -1,0 +1,118 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: #333;
+}
+
+.wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.sidebar ul li a:hover, .sidebar ul li a.active {
+    background-color: #555;
+}
+
+.content {
+    flex: 1;
+    padding: 20px;
+    max-width: calc(100% - 250px); /* Adjust content width according to sidebar */
+    margin-left: auto; /* Align content to the right side */
+}
+
+h1 {
+    color: #333;
+    margin-bottom: 20px;
+    font-size: 2em;
+    text-align: center;
+}
+
+form {
+    max-width: 800px;
+    margin: 0 auto; /* Center align the form within the content area */
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 1em;
+}
+
+input[type="file"] {
+    border: none;
+    padding: 10px 0;
+}
+
+textarea {
+    height: 100px;
+    resize: vertical;
+}
+
+
+.button-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+button {
+    padding: 10px 20px; /* 적절한 padding 설정 */
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+    width: 822px; 
+}
+
+button:hover {
+    background-color: #555;
+}
+

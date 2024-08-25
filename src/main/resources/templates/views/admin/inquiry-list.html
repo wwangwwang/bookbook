@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/admin/list.css">
+	<link rel="stylesheet" href="/css/admin/sidebar.css">
+	<script src="/js/admin/sidebar.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/admin/sidebar}" />
+		<div class="container">
+			<h1>문의 내용</h1>
+			<div th:replace="~{views/admin/inquiry-list-content}"></div>
+			<div class="line"></div>
+			<h3>1:1 문의 답변 내용</h3>
+			<div th:if="${detail != null}">
+				<div th:replace="~{views/admin/inquiry-write-content}"></div>
+			</div>
+			<div th:unless="${detail != null}">
+				<div class="content">답변 내용이 없습니다.</div>
+			</div>
+			<div class="btn">
+				<button><a th:href="|/admin/inquiry/write/${qna.qnaNum}|">답변하기</a></button>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

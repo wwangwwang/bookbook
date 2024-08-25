@@ -1,0 +1,68 @@
+<html xmlns:th="http://www.thymeleaf.org">
+
+<div class="wrapper">
+	<nav class="sidebar">
+		<a href="/admin" class="no-style"><img src="/img/logo7.png" class="logo"></a>
+		<div class="user-info">
+			<p>관리자페이지</p>
+		</div>
+		<hr class="user-info-line">
+		<ul>
+			<li>
+				<a class="menu">상품 관리</a>
+				<ul class="submenu">
+					<li><a href="/admin/inventory">상품목록</a></li>
+					<li><a href="/admin/inventory/approval">상품승인목록</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="menu">주문 관리</a>
+				<ul class="submenu">
+					<li><a href="/admin/order">주문내역</a></li>
+					<li><a href="/admin/order/refund">취소/환불</a></li>
+					<li><a href="/admin/order/exchange">불량/교환</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="menu">사용자 관리</a>
+				<ul class="submenu">
+					<li><a href="/admin/users">고객 관리</a></li>
+					<li><a href="/admin/sellers">출판사 관리</a></li>
+					<li><a href="/admin/approve">출판사 회원 등록</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="menu">리뷰 관리</a>
+				<ul class="submenu">
+					<li><a href="/admin/review">리뷰 보기</a></li>
+					<li><a href="/admin/review/complain">신고 리뷰</a></li>
+				</ul>
+			</li>
+                <li>
+                    <a th:href="@{'https://auth.worksmobile.com/oauth2/v2.0/authorize?client_id=' 
+                        + ${@environment.getProperty('naver.client.id')} 
+                        + '&redirect_uri=' 
+                        + ${@environment.getProperty('naver.client.redirect-uri')} 
+                        + '&scope=' 
+                        + ${@environment.getProperty('naver.client.scope')} 
+                        + '&response_type=code&state=drive_access'}" class="menu">드라이브</a>
+                </li>
+			<li>
+				<a class="menu">프로모션 및 쿠폰</a>
+				<ul class="submenu">
+					<li><a href="/admin/promotion">이벤트 목록</a></li>
+					<li><a href="/admin/promotion/write">이벤트 등록</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="menu">문의관리</a>
+				<ul class="submenu">
+					<li><a href="/admin/inquiry">문의 보기</a></li>
+				</ul>
+			</li>
+		</ul>
+		<a href="/logout" class="logout"><img src="/img/logout.png"></a>
+	</nav>
+	
+</div>
+</html>

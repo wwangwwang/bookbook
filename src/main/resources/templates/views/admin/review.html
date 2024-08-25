@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="/css/admin/commons.css">
+<link rel="stylesheet" href="/css/admin/sidebar.css">
+<script src="/js/admin/sidebar.js"></script>
+<script src="/js/admin/commons.js"></script>
+<script src="/js/admin/starRating.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta name="_csrf" th:content="${_csrf.token}"/>
+<meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+<script src="/js/admin/deleteReview.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/admin/sidebar}" />
+		<div class="container">
+			<h1>리뷰 관리</h1>
+			<div class="search-box">
+				<div class="search-section">
+					<div class="filter-section">
+						<label for="search">리뷰검색</label> <select id="search">
+							<option>전체</option>
+							<option>고객 성명</option>
+							<option>책 이름</option>
+						</select> <input type="text" id="searchInput">
+					</div>
+					<div class="filter-section">
+						<label for="search" class="jump2">작성기간</label> <input type="date"
+							id="startDate"> ~ <input type="date" id="endDate">
+					</div>
+					<div class="btns">
+						<button class="search-btn">검색</button>
+						<button>초기화</button>
+					</div>
+				</div>
+			</div>
+			<div class="inven-box">
+				<button>삭제하기</button>
+				<table class="order-table">
+					<thead>
+						<tr>
+							<th><input type="checkbox" id="select-all"></th>
+							<th>리뷰번호</th>
+							<th>작성일</th>
+							<th>고객정보</th>
+							<th>상품</th>
+							<th>별점</th>
+							<th>내용</th>
+							<th>정보</th>
+							<th>상태</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="review : ${reviews}" th:id="'review-' + ${review.reviewNum}" class="review-item">
+							<td><input type="checkbox" id="select-all"></td>
+							<td th:text="${review.reviewNum}"></td>
+							<td
+								th:text="${#temporals.format(review.reviewDate, 'yyyy-MM-dd HH:mm')}"></td>
+							<td th:text="${review.username}"></td>
+							<td>
+								<div>
+									<span>제목 : </span><span
+										th:text="${#strings.length(review.bookname) > 10 ? #strings.substring(review.bookname,0,10) + '...' : review.bookname}"
+										th:title="${review.bookname}"></span>
+									
+								</div>
+								<div>
+									<span>저자 : </span><span
+										th:text="${#strings.length(review.author) > 5 ? #strings.substring(review.author,0,5) + '...' : review.author}"
+										th:title="${review.author}"></span>
+								</div>
+								<div>
+									<span>번호 : </span><span th:text="${review.isbn}"></span>
+								</div>
+							</td>
+							<td><span th:id="'stars-' + ${review.reviewNum}"
+								th:data-rating="${review.rate}" class="star-rating"></span></td>
+							<td th:text="${review.reviewContent}"></td>
+							<td th:text="${review.actualOrder ? '구매자' : '비구매자'}"></td>
+							<td>
+								<button th:onclick="'deleteReview(' + ${review.reviewNum} + ')'" type="button">삭제</button>
+								<form
+									th:action="@{/admin/review/update/{reviewNum}(reviewNum=${review.reviewNum})}"
+									method="post">
+									<button type="submit">신고</button>
+								</form>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="pagination" class="pagination-container"></div>
+			</div>
+		</div>
+</body>
+
+</html>

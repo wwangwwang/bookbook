@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/mypage/sidebar.css">
+	<link rel="stylesheet" href="/css/mypage/coupon.css">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<script>
+		function btnDeleteClicked(){
+			return confirm("정말로 삭제하시겠습니까?");
+		}
+	</script>
+</head>
+<main>
+	<div class="flex">
+        <th:block  th:insert="~{views/mypage/sidebar}"/>
+        <div class="main-content">
+            <div class="container-main">
+		        <div class="head">
+		            <h1>나의 쿠폰</h1>
+		            <button class="head-btn" id="RegisterBtn">교환번호 등록</button>
+		        </div>
+		        
+		        <div class="modal-background-register" id="modal-register">
+			        <form class="modal-register-ui" action="/mypage/coupons" method="post">
+			        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+				        <span class="close" id="coupon-register-close">&times;</span>
+				        <h2>교환번호 등록</h2>
+				        <input id="couponNum" type="text" name="couponNum" placeholder="번호를 입력해 주세요">
+				        <div class="info">
+				            <p><strong>교환번호 이용안내</strong></p>
+				            <p>받은 쿠폰의 교환번호는 '상세보기'를 눌러 확인 가능합니다.</p>
+				            <p>이벤트나 프로모션으로 제공되는 교환번호는 계정당 등록 횟수가 제한됩니다.</p>
+				            <p>이용중인 다른 교환번호가 있을 경우, 기간 연장이 아닌 별도의 교환번호가 생성됩니다.</p>
+				            <p>등록된 교환번호는 취소/환불이 불가능합니다.</p>
+				        </div>
+				        <button type="button" onclick="registerCoupon()">등록</button>
+				    </form>
+			    </div>
+		        
+		        <div class="tabs">
+		            <button class="tab active" onclick="openTab(event, 'coupon')">사용 가능 쿠폰</button>
+		            <button class="tab" onclick="openTab(event, 'expiredCoupon')">만료된 쿠폰</button>
+		        </div>
+		
+		        <div class="coupon-summary">
+		            <div class="available-coupons">
+		                <span>사용 가능한 쿠폰</span>
+		                <span class="count" th:text="|${#lists.size(coupons)}장|"></span>
+		            </div>
+		            <div class="scheduled-coupons">
+		                <span>만료된 쿠폰</span>
+		                <span class="count" th:text="|${#lists.size(expiredCoupons)}장|">6장</span>
+		            </div>
+		        </div>
+		        <div class="coupon-filters">
+		        	<i id="all-btn" class="fa-regular fa-circle-check"></i>
+		            <span id="all-text" class="coupon-filters-all">전체</span>
+		            <button class="delete-button"><i class="fa-solid fa-trash trash-btn"></i>삭제</button>
+		        </div>
+		        
+		        <div id="coupon" class="tabcontent">
+		        	<div class="coupon-container">
+				        <div class="coupon" th:each="coupon : ${coupons}">
+				            <form class="discount" th:action="|/mypage/coupons/${coupon.couponNum}|" onsubmit="return btnDeleteClicked()" method="post">
+				            	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+								<input type="hidden" name="_method" value="delete">
+				            	<i class="fa-regular fa-circle-check"></i> 
+				            	<span th:text="${coupon.couponName}">1,000원 할인</span>
+				            	<button class="trash-button-detail"><i class="fa-solid fa-trash trash-btn-detail"></i></button>
+				            </form>
+				            <div class="description" th:text="${coupon.couponDetail}">어린이 과학동아(2024년 8월 1일자)(15호)<br>1000원 할인쿠폰</div>
+				            <div class="dates">
+				            	<span th:text="|${coupon.startDate.toLocalDate()} ~ ${coupon.endDate.toLocalDate()}|">날짜</span> 
+				            	<span class="days-left" th:text="|D-${coupon.remainingDays()}|" >D-25</span>
+				            </div>
+				            <div class="details">상세보기</div>
+				        </div>
+				    </div>
+		        </div>
+		        
+		        <div id="expiredCoupon" class="tabcontent">
+		        	<div class="coupon-container">
+			        	<div class="coupon" th:each="expiredCoupon : ${expiredCoupons}">
+				            <form class="discount" th:action="|/mypage/coupons/${expiredCoupon.couponNum}|" onsubmit="return btnDeleteClicked()" method="post">
+				            	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+								<input type="hidden" name="_method" value="delete">
+				            	<i class="fa-regular fa-circle-check"></i> 
+				            	<span th:text="${expiredCoupon.couponName}">1,000원 할인</span>
+				            	<button class="trash-button-detail"><i class="fa-solid fa-trash trash-btn-detail"></i></button>
+				            </form>
+				            <div class="description" th:text="${expiredCoupon.couponDetail}">어린이 과학동아(2024년 8월 1일자)(15호)<br>1000원 할인쿠폰</div>
+				            <div class="dates">
+				            	<span th:text="|${expiredCoupon.startDate.toLocalDate()} ~ ${expiredCoupon.endDate.toLocalDate()}|">날짜</span> 
+				            </div>
+				            <div class="details">상세보기</div>
+				        </div>
+				    </div>
+		        </div>
+		        
+		        <div id="myModal" class="modal">
+			        <div class="modal-content">
+			            <span class="close">&times;</span>
+			            <div class="discount">할인 쿠폰 유의사항</div>
+			            <div class="description">대상 상품 및 적용 주문금액을 확인해주세요.</div>
+			            <div class="dates">
+			            	유의사항 : 중복 사용 불가합니다.<br> 
+			            	유효기간이 지난 쿠폰은 재발행 되지 않습니다. <br>
+							주문 취소 시에도 동일하게 적용됩니다.<br>
+							무료배송쿠폰은 배송비가 발생하는 주문에 한해 배송비 무료 적용을 하실 수 있습니다. (단, 해외배송 제외)</div>
+			        </div>
+			    </div>
+			    
+		    </div>
+        </div>
+    </div>
+    <script src="/js/mypage/coupon.js"></script>
+</main>
+</html>

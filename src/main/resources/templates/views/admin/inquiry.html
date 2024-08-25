@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/admin/commons.css">
+	<link rel="stylesheet" href="/css/admin/sidebar.css">
+	<script src="/js/admin/commons.js"></script>
+	<script src="/js/admin/sidebar.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/admin/sidebar}" />
+		<div class="container">
+			<h1>문의 보기</h1>
+			<div class="search-box">
+				<div class="search-section">
+					<div class="filter-section">
+						<label for="search">문의검색</label>
+						<select id="search">
+							<option>전체</option>
+							<option>고객 성명</option>
+							<option>책 이름</option>
+						</select>
+						<input type="text" id="searchInput">
+					</div>
+					<div class="filter-section">
+						<label for="search" class="jump2">작성기간</label>
+						<input type="date" id="startDate"> ~ <input type="date" id="endDate">
+					</div>
+					<div class="filters">
+						<div class="filter-section">
+							<label>문의상태</label>
+							<input type="radio" name="status" checked> 전체
+							<input type="radio" name="status"> 답변 대기
+							<input type="radio" name="status"> 답변 완료
+						</div>
+						<div class="btns">
+							<button class="search-btn">검색</button>
+							<button>초기화</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="inven-box">
+				<table class="order-table">
+					<thead>
+						<tr>
+
+							<th>접수 번호</th>
+							<th class="long">제목</th>
+							<th>문의타입</th>
+							<th>상태</th>
+							<th>작성일</th>
+							<th>상세보기</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="dto:${list}">
+
+							<td th:text="${dto.qnaNum}"></td>
+							<td th:text="${dto.title}"></td>
+							<td th:text="${dto.qnaType}"></td>
+							<td th:if="${dto.status==1}" class="status-finish">답변완료</td>
+							<td th:if="${dto.status==0}" class="status">답변대기</td>
+							<td th:text="${dto.date.toLocalDate()}"></td>
+							<td><a th:href="|/admin/inquiry/list/${dto.qnaNum}|"><button>상세보기</button></a></td>
+						</tr>
+					</tbody>
+				</table>
+				<div id="pagination" class="pagination-container"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

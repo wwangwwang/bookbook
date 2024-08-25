@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>클라우드</title>
+    <link rel="stylesheet" href="/css/admin/commons.css">
+    <link rel="stylesheet" href="/css/admin/sidebar.css">
+    <script src="/js/admin/sidebar.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <div style="display: flex;">
+        <th:block th:insert="~{views/admin/sidebar}" />
+        <div class="container">
+            <h1>드라이브 파일 목록</h1>
+            <div class="inven-box">
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>파일 이름</th>                          
+                            <th>파일 타입</th>
+                            <th>생성 날짜</th>
+                            <th>수정 날짜</th>
+                            <th>하위 파일 보기</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="file : ${rootfiles}" th:if="${rootfiles != null and not #lists.isEmpty(rootfiles)}">
+                            <td th:text="${file.fileName}"></td>                        
+                            <td th:text="${file.fileType}"></td>
+                            <td th:text="${#temporals.format(T(java.time.LocalDateTime).parse(file.createdTime.substring(0, 19)), 'yyyy-MM-dd HH:mm')}"></td>
+                            <td th:text="${#temporals.format(T(java.time.LocalDateTime).parse(file.modifiedTime.substring(0, 19)), 'yyyy-MM-dd HH:mm')}"></td>
+                            <td>
+                                <form th:action="@{/admin/drive/files}" method="post">
+                                    <input type="hidden" th:name="${_csrf != null ? _csrf.parameterName : 'csrf'}"
+                                           th:value="${_csrf != null ? _csrf.token : ''}"/>
+                                    <input type="hidden" name="fileId" th:value="${file.fileId}">
+                                    <button type="submit" class="btn-download">보기</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div th:if="${rootfiles == null or #lists.isEmpty(rootfiles)}" class="alert alert-warning">
+                    조회된 파일이 없습니다
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

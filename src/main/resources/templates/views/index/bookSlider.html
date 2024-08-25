@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!-- 도서 추천 슬라이더  -->
+<div class="book-slider-container">
+    <a href="/bookList"><h1>베스트 Pick</h1></a>
+    <div class="book-slider" th:if="${not #lists.isEmpty(bestSellerSlides)}">
+        <div class="book-slide" th:each="slide : ${bestSellerSlides}">
+            <span class="book-item" th:each="book : ${slide.books}">
+                <a th:href="@{|/detail/${book.isbn}|}"><img th:src="${book.image}" th:alt="${book.title}"></a>
+                <a class="book-title" th:href="@{|/detail/${book.isbn}|}" th:text="${book.title}" th:title="${book.title}"></a>
+                <span class="book-author" th:text="${book.author}"></span>
+                <span class="book-price" th:text="|${#numbers.formatInteger(book.discount,3,'COMMA')} 원|"></span>
+            </span>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(bestSellerSlides)}">
+        <p>현재 표시할 도서가 없습니다.</p>
+    </div>
+</div>
+<button class="book-prev" aria-label="Previous books">&lt;</button>
+<button class="book-next" aria-label="Next books">&gt;</button>
+
+</html>

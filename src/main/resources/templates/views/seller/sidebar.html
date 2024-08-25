@@ -1,0 +1,36 @@
+<div class="wrapper">
+	<nav class="sidebar">
+		<a href="/seller"><img src="/img/logo7.png" class="logo"></a>
+		<div class="user-info">
+			<!--<a href="/seller/mypage" th:text="${#authentication.principal.sellerName}">북북출판사</a>-->
+			<a href="/seller/mypage">출판사</a>
+			<a>▼</a>
+		</div>
+		<hr class="user-info-line">
+		<ul>
+			<li>
+				<a class="menu">상품 관리</a>
+				<ul class="submenu">
+					<li><a href="/seller/inventory">상품목록</a></li>
+					<li><a href="/seller/inventory/write">상품등록</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="menu">주문 관리</a>
+				<ul class="submenu">
+					<li><a href="/seller/order">주문내역</a></li>
+					<li><a href="/seller/order/refund">취소/환불</a></li>
+					<li><a href="/seller/order/exchange">불량/교환</a></li>
+				</ul>
+			</li>
+			<li>
+				<a class="menu">리뷰 관리</a>
+				<ul class="submenu">
+					<li><a href="/seller/review">리뷰 보기</a></li>
+				</ul>
+			</li>
+			
+		</ul>
+		<a href="/logout" class="logout"><img src="/img/logout.png"></a>
+	</nav>
+</div>

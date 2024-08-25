@@ -1,0 +1,75 @@
+textarea::placeholder {
+    font-size: 14px;
+    font-family: "Noto Sans KR", sans-serif;
+}
+
+.head{
+	margin-bottom: 40px;
+}
+.list-btn{
+	border: 1px solid var(--grey);
+    color: var(--black);
+    background-color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.form-group {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 25px;
+}
+
+label {
+    font-weight: bold;
+    width: 150px;
+}
+
+.input,
+textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #FF904011;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+.span-ex{
+	width: 100%;
+    padding: 8px;
+    font-size: 14px;
+}
+
+textarea {
+    height: 270px;
+    resize: none;
+}
+
+.submit-button {
+    width: 100%;
+    padding: 10px;
+    background-color: var(--main-orange);
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* .submit-button:hover {
+    background-color: ;
+} */
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    display: none; /* Initially hidden, can be shown when an error occurs */
+}
+
+.note {
+    font-size: 12px;
+    color: #555;
+    margin-top: 60px;
+    text-align: center;
+}

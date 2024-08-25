@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bookbook.mapper.BookMapper">
+	<select id="findAll"
+		resultType="com.project.bookbook.domain.dto.BookDTO">
+		SELECT
+		book_name AS title,
+		author,
+		publisher,
+		description,
+		isbn,
+		book_img AS image,
+		CAST(discount AS CHAR) AS discount
+		FROM book
+		ORDER BY pubdate DESC
+	</select>
+	<select id="findIsbn" resultType="com.project.bookbook.domain.dto.BookDTO">
+        SELECT 
+            book_name AS title,
+            author,
+            publisher,
+            DATE_FORMAT(pubdate, '%Y-%m-%d') AS pubdate,
+            description,
+            isbn,
+            book_img AS image,
+            link,
+            CAST(discount AS CHAR) AS discount
+        FROM book
+        WHERE isbn = #{isbn}
+    </select>
+</mapper>

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/mypage/sidebar.css">
+	<link rel="stylesheet" href="/css/mypage/question-detail.css">
+	<link rel="stylesheet" href="/css/mypage/question-form.css">
+	<script>
+		function btnDeleteClicked(){
+			return confirm("정말로 삭제하시겠습니까?");
+		}
+	</script>
+</head>
+<main>
+	<div class="flex">
+        <th:block  th:insert="~{views/mypage/sidebar}"/>
+        <div class="main-content">
+            <div class="container-main">
+		        <div class="head">
+		            <h1>1:1 문의하기</h1>
+		            <form th:action="|/mypage/questions/${qna.qnaNum}|" onsubmit="return btnDeleteClicked()" method="post">
+		            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+		            	<input type="hidden" name="_method" value="delete">
+			            <button class="list-btn">삭제</button>
+			            <button type="button" class="list-btn" onclick="window.location.href='/mypage/questions';">목록</button>
+		            </form>
+		        </div>
+		        <div class="box">
+					<div class="form-header">
+						<h2 th:text="${qna.title}">안녕하세요</h2>
+						<div class="profile-header">
+							<div class="info-pic">
+							</div>
+							<div class="user-details">
+								<span class="username" th:text="${#authentication.principal.name}">이름</span>
+								<span class="subscription" th:text="${#authentication.principal.email}">yujin@naver.com</span>
+								<span class="timestamp" th:text="${qna.date.toLocalDate}">2024.08.10. 15:39 </span>
+							</div>
+						</div>
+					</div>
+					<div class="memo">
+						<p th:text="${qna.content}">책이 너무 비싸요 값 좀 내려주세요</p>
+					</div>
+				</div>
+				<div class="box" th:unless="${#lists.isEmpty(answer)}">
+					<div class="form-header">
+						<h2 th:text="${answer.title}">문의 답변입니다.</h2>
+						<div class="profile-header">
+							<div class="info-pic">
+							</div>
+							<div class="user-details">
+								<span class="username">관리자</span>
+								<span class="timestamp" th:text="${answer.date.toLocalDate}">2024.08.10. 17:39 </span>
+							</div>
+						</div>
+					</div>
+					<div class="memo">
+						<p th:text="${answer.content}">요새 종이 값이 금값입니다.</p>
+					</div>
+				</div>
+				<div class="box" th:if="${#lists.isEmpty(answer)}">
+					<div class="form-header">
+						<h2>답변 미작성</h2>
+						<!-- <div class="profile-header">
+							<div class="info-pic">
+							</div>
+							<div class="user-details">
+								<span class="username">관리자</span>
+							</div>
+						</div> -->
+					</div>
+					<div class="memo">
+						<p>곧 작성예정입니다. 조금만 기다려주세요.</p>
+					</div>
+				</div>
+		    </div>
+        </div>
+    </div>
+</main>
+</html>

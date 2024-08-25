@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>관리자 페이지</title>
+    <link rel="stylesheet" href="/css/login/admin-common.css">
+    <link rel="stylesheet" href="/css/login/admin.css">
+</head>
+<body>
+    <div class="wrapper">
+		<div th:replace="~{/views/login/sidebaradmin(activeMenu='admin1')}"></div>
+        <main class="content">
+            <h1>고객 관리</h1>
+            <div class="search-container">
+                <input type="text" id="searchInput" placeholder="고객 검색 (이름, 이메일, 전화번호)">
+                <button id="searchButton">검색</button>
+            </div>
+            <table id="customerTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>이름</th>
+                        <th>이메일</th>
+                        <th>전화번호</th>
+                        <th>가입일</th>
+                        <th>상세정보</th>
+                        <th>리뷰</th>
+                    </tr>
+                </thead>
+                <tbody>
+            <tr>
+                <td>1</td>
+                <td>홍길동</td>
+                <td>hong@example.com</td>
+                <td>010-1234-5678</td>
+                <td>2023-01-15</td>
+                <td>
+                      <a href="/admin/detail"><button class="action-button">정보</button></a>
+                </td>
+                <td>
+                    <a href="/review"><button class="review-button">작성 리뷰</button></a>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>김유장</td>
+                <td>kim@example.com</td>
+                <td>010-2345-6789</td>
+                <td>2023-02-20</td>
+                <td>
+                     <a href="/admin1/detail"><button class="action-button">정보</button></a>
+                </td>
+                <td>
+                    <a href="/review"><button class="review-button">작성 리뷰</button></a>
+                </td>
+            </tr>
+        </tbody>
+            </table>
+    	<div class="pagination">
+    	        <a href="#"><</a>
+                <a href="#" class="active">1</a>
+                <a href="#">2</a>
+                <a href="#">3</a>
+                <a href="#">></a>
+            </div>
+        </main>
+    </div>
+
+</body>
+</html>

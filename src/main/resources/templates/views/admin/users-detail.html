@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/admin/detail.css">
+	<link rel="stylesheet" href="/css/admin/commons.css">
+	<link rel="stylesheet" href="/css/admin/sidebar.css">
+	<script src="/js/admin/sidebar.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/admin/sidebar}" />
+		<div class="container">
+			<h1>고객 상세 정보</h1>
+			<div class="profile-container">
+				<div class="profile-header">
+					<div class="info-pic">
+
+					</div>
+					<div class="profile-details">
+
+						<h2 th:text="${user.userName}"></h2>
+						<p th:text="${user.userId}" class="ID"></p>
+					</div>
+				</div>
+				<div class="selection-info">
+					<h2>회원 정보</h2>
+					<div class="info-item">
+						<label>이메일</label>
+						<p th:text="${user.email}"></p>
+					</div>
+					<div class="info-item">
+						<label>휴대전화번호</label>
+						<p th:text="${user.phoneNumber}"></p>
+					</div>
+					<div class="info-item">
+						<label>성별</label>
+						<p th:text="${user.gender}">-</p>
+					</div>
+					<div class="info-item">
+						<label>생년월일</label>
+						<p th:text="${user.birthDate}">-</p>
+					</div>
+					<div class="info-item">
+						<label>가입일</label>
+						<p>2024-08-01</p>
+					</div>
+					<div class="info-item">
+						<label>주소</label>
+						<p th:text="${user.address + ' ' + user.detailAddress + ' ' + user.extraAddress}"></p>
+					</div>
+					<div class="info-item">
+						<label>나의 취향</label>
+						<p>-</p>
+					</div>
+					<h2>회원 활동 정보</h2>
+					<div class="info-item">
+						<label>총 주문 수</label>
+						<p>15건</p>
+					</div>
+					<div class="info-item">
+						<label>총 주문 금액</label>
+						<p>300,000</p>
+					</div>
+					<div class="info-item">
+						<label>작성 리뷰</label>
+						<p>4건</p>
+					</div>
+					<div class="info-item">
+						<label>적립금</label>
+						<p>0</p>
+					</div>
+					<div></div>
+				</div>
+				<div class="account-link">
+
+				</div>
+				<div class="account-delete">
+					<button class="delete-account-button">계정 정지</button>
+					<button class="delete-account-button">계정 삭제</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

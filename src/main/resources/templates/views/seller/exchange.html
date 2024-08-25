@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/admin/commons.css">
+	<link rel="stylesheet" href="/css/admin/sidebar.css">
+	<script src="/js/admin/sidebar.js"></script>
+	<script src="/js/admin/commons.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/seller/sidebar}" />
+		<div class="container">
+			<h1>불량/교환</h1>
+			<div class="search-box">
+				<div class="search-section">
+					<div class="filter-section">
+						<label for="search" class="jump">출판사</label>
+						<select id="search">
+							<option>미분류</option>
+						</select>
+						<input type="text" id="searchInput">
+					</div>
+					<div class="filter-section">
+						<label for="search" class="jump">검색어</label>
+						<select id="search">
+							<option>주문번호</option>
+						</select>
+						<input type="text" id="searchInput">
+					</div>
+					<div class="filter-section">
+						<label for="search" class="jump2">환불기간</label>
+						<input type="date" id="startDate"> ~ <input type="date" id="endDate">
+					</div>
+					<div class="filter-section">
+						<label class="jump">택배사</label>
+						<select>
+							<option>전체</option>
+						</select>
+					</div>
+					<div class="filter-section">
+						<label>교환상태</label>
+						<label><input type="checkbox" checked> 전체</label>
+						<label><input type="checkbox" checked> 교환전</label>
+						<label><input type="checkbox" checked> 교환완료</label>
+						<label><input type="checkbox" checked> 교환보류</label>
+					</div>
+					<div class="btns">
+						<button class="search-btn">검색</button>
+						<button>초기화</button>
+					</div>
+				</div>
+			</div>
+			<div class="inven-box">
+				<table class="order-table">
+					<thead>
+						<tr>
+							<th><input type="checkbox"></th>
+							<th>결제완료일</th>
+							<th>주문번호/교환번호</th>
+							<th>주문자</th>
+							<th>총 수량</th>
+							<th>총 환불액</th>
+							<th>사용 적립금</th>
+							<th>결제 수단</th>
+							<th>환불 수단</th>
+							<th>처리상태</th>
+							<th>발송처리</th>
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>2024-05-18</td>
+							<td>20151211-12013764<br>
+								20151211-12013764
+							</td>
+							<td>이유진</td>
+							<td>1건</td>
+							<td>25,000</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>환불전</td>
+							<td></td>
+
+						</tr>
+						<tr>
+							<td><input type="checkbox"></td>
+							<td>2024-05-18</td>
+							<td>20151211-12013764<br>
+								20151211-12013764
+							</td>
+							<td>이유진</td>
+							<td>1건</td>
+							<td>25,000</td>
+							<td></td>
+							<td></td>
+							<td></td>
+							<td>환불전</td>
+							<td></td>
+
+						</tr>
+
+					</tbody>
+				</table>
+				<div id="pagination" class="pagination-container"></div>
+			</div>
+		</div>
+</body>
+
+</html>

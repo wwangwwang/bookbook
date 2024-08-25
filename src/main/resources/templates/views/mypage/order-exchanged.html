@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/mypage/sidebar.css">
+	<link rel="stylesheet" href="/css/mypage/order.css">
+	<script src="/js/mypage/shipment.js"></script>
+	<script>
+	document.addEventListener("DOMContentLoaded", function() {
+	    const searchForm = document.getElementById("search-form2");
+	    const searchInput = document.getElementById("search");
+	    const orderList = document.querySelector(".order-list table tbody");
+
+	    if (!searchForm || !searchInput || !orderList) {
+	        console.error("필요한 DOM 요소를 찾을 수 없습니다.");
+	        return;
+	    }
+
+	    searchForm.addEventListener("submit", function(event) {
+	        event.preventDefault();
+	        const query = searchInput.value.toLowerCase();
+	        filterTable(query);
+	    });
+
+	    function filterTable(query) {
+	        const rows = orderList.querySelectorAll("tr");
+
+	        rows.forEach(row => {
+	            const bookName = row.querySelector(".order-info div")?.textContent.toLowerCase() || "";
+	            const orderDate = row.querySelector("td:first-child")?.textContent.toLowerCase() || "";
+	            const orderStatus = row.querySelector(".order-actions div")?.textContent.toLowerCase() || "";
+
+	            const shouldDisplay = 
+	                bookName.includes(query) || 
+	                orderDate.includes(query) || 
+	                orderStatus.includes(query);
+
+	            row.style.display = shouldDisplay ? "" : "none";
+	        });
+	    }
+	});
+	</script>
+</head>
+<main>
+	<div class="flex">
+        <th:block  th:insert="~{views/mypage/sidebar}"/>
+        <div class="main-content">
+	        <div class="container-main">
+	        	<div class="head">
+	            	<h1>주문/배송목록</h1>
+	            </div>
+	            <div class="nav-tabs">
+	                <div>주문내역</div>
+	                <div>주문완료 <span th:text="${#lists.size(orderCompleted)}">0</span></div>
+	                <div>배송중 <span th:text="${#lists.size(inProgress)}">0</span></div>
+	                <div>배송완료 <span th:text="${#lists.size(shipmentCompleted)}">0</span></div>
+	                <div>취소 <span th:text="${#lists.size(canceled)}">0</span></div>
+	                <div>교환/환불 <span>0</span></div>
+	            </div>
+	            <form id="search-form2">
+				    <div class="search-wrap search-bar">
+				        <input id="search" type="text" placeholder="상품명/판매자명 입력">
+				        <button class="search-btn" type="submit">검색</button>
+				    </div>
+				</form>
+	            
+	            <div class="order-list" >
+	                <table>
+	                    <thead>
+	                        <tr>
+	                            <th>주문일자</th>
+	                            <th>제품정보</th>
+	                            <th style="width: 100px;">결제금액</th>
+	                            <th style="width: 130px;">주문 현황</th>
+	                        </tr>
+	                    </thead>
+	                    <tbody>
+	                        
+	                    </tbody>
+	                </table>
+	            </div>
+	            
+	            <div th:if="${#lists.isEmpty(canceled)}">
+	            	<p class="no-orders">
+	            		<i class="fa-solid fa-circle-info"></i>
+	            		<span>해당 기간에 교환/환불한 상품이 없습니다.</span>
+	            	</p>
+	            </div>
+	            
+	            <div>
+	            	<section class="notice-section">
+			            <div class="notice-box">
+			                <h2>유의사항</h2>
+			                <ul>
+			                    <li>배송조회는 택배사로 상품전달 후 조회 가능합니다.</li>
+			                    <li>현재 카드결제만 가능하며 추후 무통장결제가 추가될 예정입니다.</li>
+			                    <li>주문한 상품이 품절될 경우 해당 상품은 자동 취소 신청되며, 해당 카드사 정책에 따라 환불됩니다.</li>
+			                </ul>
+			            </div>
+			
+			            <div class="notice-box">
+			                <h2>카드결제(간편결제, 법인카드 포함) 취소 안내</h2>
+			                <ul>
+			                    <li>카드결제 취소 기간 안내</li>
+			                    <li>전체취소: 당일 취소/환불 처리</li>
+			                    <li>부분취소: 영업일 기준 3~5일 소요(당일 취소 포함)</li>
+			                    <li>카드사 정책에 따라 주문당일 부분취소할 경우 당일 취소 및 환불 불가합니다.</li>
+			                </ul>
+			            </div>
+			        </section>
+	            </div>
+	        </div>
+        </div>
+    </div>
+</main>
+</html>

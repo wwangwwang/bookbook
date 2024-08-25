@@ -1,0 +1,104 @@
+/* 사이드바 아닌 공통 부분 */
+h1 {
+	margin: 0;
+    font-size: 24px;
+}
+
+.main-content {
+    flex: 1;
+    background-color: #fff;
+    padding: 20px;
+    padding-left: 0;
+}
+
+.container-main {
+    margin: auto;
+    background-color: white;
+    padding: 20px;
+    /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+}
+
+.head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    /* border-bottom: 1px solid #ddd; */
+    margin-left : 5px;
+}
+.head-btn{
+	border: 1px solid var(--grey);
+    color: var(--black);
+    background-color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+/* 사이드바 */
+.sidebar {
+	width: 250px;
+	padding: 20px;
+}
+
+.profile-section {
+	text-align: center;
+	margin-bottom: 20px;
+	background-color: var(--light-grey);
+	padding: 30px;
+	border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-pic {
+	width: 80px;
+	height: 80px;
+	border-radius: 50%;
+	background-color: #d3d3d3;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 50px;
+	color: #fff;
+	margin-bottom: 10px;
+}
+
+.profile-info div {
+	margin-bottom: 5px;
+}
+
+.wish{
+	border-right : 1px solid var(--grey);
+	padding-right: 10px;
+	margin-right: 10px;
+	height: 80%
+}
+.favorite-find{
+	font-weight: 500;
+}
+
+.menu {
+	padding: 10px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	border-radius: 10px;
+}
+
+.menu li {
+	padding: 12px;
+}
+
+.menu-main {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.menu a {
+	display: block;
+}
+
+.menu li:hover {
+	background-color: var(--light-grey);
+}
+
+.menu > li:nth-child(7){
+	margin-top: 30px;
+}

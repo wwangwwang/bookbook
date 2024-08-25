@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/mypage/sidebar.css">
+	<link rel="stylesheet" href="/css/mypage/order-detail.css">
+	<script src="/js/mypage/shipment.js"></script>
+</head>
+<main>
+	<div class="flex">
+        <th:block  th:insert="~{views/mypage/sidebar}"/>
+        <div class="main-content">
+            <div class="container-main">
+	        	<div class="head">
+	            	<h1>주문 상세</h1>
+	            </div>
+	            <p>
+	            	<span class="order-date" th:text="|${ordersDetail.dateFormatting()} 주문|">2024. 7. 31 주문</span> 
+	            	<span class="order-number" th:text="|주문번호 ${merchantUid}|">주문번호 16100061537799</span>
+	            </p>
+	
+	            <div class="shipping-status">
+	                <h2 th:if="${ordersDetail.orderStatus == 1}">주문 완료 (배송 대기 중)</h2>
+	                <h2 th:if="${ordersDetail.orderStatus == 2}">배송중 - 오늘 도착</h2>
+	                <h2 th:if="${ordersDetail.orderStatus == 3}">배송 완료</h2>
+	                <h2 th:if="${ordersDetail.orderStatus == 4}">취소</h2>
+	                <div class="flex between">
+		                <div class="product-info">
+		                    <img th:src="${orderBooks[0].bookImg}">
+		                    <div class="product-details">
+		                    	<div class="product-text">
+			                        <p class="product-title" 
+									   th:unless="${orderBooks.size() == 1}" 
+									   th:text="|${orderBooks[0].bookName} 외 ${orderBooks.size() - 1}권|">
+									   해리포터와 마법사의 돌 외 1권
+									</p>
+									
+									<p class="product-title" 
+									   th:if="${orderBooks.size() == 1}" 
+									   th:text="${orderBooks[0].bookName}">
+									   해리포터와 마법사의 돌
+									</p>
+			                        <p class="product-price" th:text="|${#numbers.formatDecimal(ordersDetail.paidAmount, 0, 'COMMA', 0, 'NONE')}원|">17,000원</p>
+		                        </div>
+		                        <!-- <button class="cart-btn">장바구니 다시 담기</button> -->
+		                    </div>
+		                </div>
+		                <div class="shipping-actions">
+		                    <button class="track-button" onclick="openAndSubmitForm()">배송조회</button>
+		                    <button class="cancel-button">배송 취소</button>
+		                    <button class="print-button">영수증 출력</button>
+		                </div>
+	                </div>
+	            </div>
+	            
+	            <div class="receiver-info">
+	                <h3>받는사람 정보</h3>
+	                <p th:text="|받는사람 : ${user.userName}|">받는사람 : 이유진</p>
+	                <p th:text="|연락처 : ${user.phoneNumber}|">연락처 : 010-1234-5678</p>
+	                <p th:text="|받는주소 : ${user.address} ${user.detailAddress}|">받는주소 : 서울특별시 강남구 역삼동 76번지 33 110동 1107호</p>
+	                <p>공동현관 비밀번호 : 8277</p>
+	            </div>
+	
+	            <div class="payment-info">
+	                <h3>결제 정보</h3>
+	                <table>
+	                    <tr>
+	                        <th>결제수단</th>
+	                        <th>금액</th>
+	                    </tr>
+	                    <tr>
+	                        <td>국민카드 / 일시불</td>
+	                        <td th:text="|${#numbers.formatDecimal(ordersDetail.paidAmount, 0, 'COMMA', 0, 'NONE')}원|" >17,000원</td>
+	                    </tr>
+	                    <tr>
+	                        <td>할인금액</td>
+	                        <td th:if="${couponRate != null}" th:text="|- ${#numbers.formatDecimal(couponRate, 0, 'COMMA', 0, 'NONE')}원|">0원</td>
+	                        <td th:if="${couponRate == null}">0원</td>
+	                    </tr>
+	                    <tr>
+	                        <td>배송비</td>
+	                        <td>3,000원</td>
+	                    </tr>
+	                    <tr>
+	                        <td>총 결제금액</td>
+	                        <td th:text="|${#numbers.formatDecimal(ordersDetail.paidAmount, 0, 'COMMA', 0, 'NONE')}원|">17,000원</td>
+	                    </tr>
+	                </table>
+	            </div>
+		    </div>
+        </div>
+    </div>
+</main>
+</html>

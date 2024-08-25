@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/mypage/sidebar.css">
+	<link rel="stylesheet" href="/css/mypage/account-delete.css">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<script src="/js/mypage/account-delete.js"></script>
+</head>
+<main>
+	<div class="flex">
+        <th:block  th:insert="~{views/mypage/sidebar}"/>
+        <div class="main-content">
+            <div class="container-main">
+		        <div class="head">
+		            <h1>회원탈퇴</h1>
+		            <form class="header-buttons" action="/logout" method="post">
+		            	<input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+		                <button class="header-button">로그아웃</button>
+		                <button type="button" class="header-button" onclick="window.location.href='/mypage/account';">회원정보</button>
+		            </form>
+		        </div>
+		
+		        <section class="info-section">
+		            <p>아래 내용을 꼭 확인해 주세요.</p>
+		            <div class="info-box">
+		                <h2>회원정보 및 거래내역 삭제</h2>
+		                <ul>
+		                    <li>회원탈퇴 시 회원님의 모든 개인정보는 안전하게 삭제됩니다.</li>
+		                    <li>탈퇴한 계정은 복구가 불가능합니다.</li>
+		                    <li>탈퇴 후 회원정보 및 거래내역은 복구할 수 없습니다.</li>
+		                    <li>회원 탈퇴 후에도 법령에 따라 거래정보는 일정 기간 보관됩니다.</li>
+		                </ul>
+		
+		                <h2>회원 재가입 제한</h2>
+		                <ul>
+		                    <li>회원탈퇴 후 동일한 아이디로 재가입이 불가능합니다.</li>
+		                </ul>
+		
+		                <h2>탈퇴 후 정보보관 안내</h2>
+		                <ul>
+		                    <li>회원 탈퇴 시점으로부터 최소 1년 동안 보관할 예정입니다.</li>
+		                    <li>보관 중에는 해당 정보는 비공개 처리됩니다.</li>
+		                </ul>
+		            </div>
+		
+		            <div class="info-box flex between">
+		                <h2>탈퇴 관련 문의가 있으시면 1:1 문의를 이용해 주세요.</h2>
+		                <button class="auth-button" onclick="window.location.href='/mypage/questions';">1:1 문의하기</button>
+		            </div>
+		
+		            <div class="info-box">
+		                <h2>회원탈퇴 정보 내역을 확인해 주세요.</h2>
+		                <div class="form-group">
+		                    <label for="reason">어떤 점이 불편하셨나요?</label>
+		                    <select id="reason">
+		                        <option value="고객센터">고객센터</option>
+		                        <option value="서비스">서비스</option>
+		                        <option value="기타">기타</option>
+		                    </select>
+		                </div>
+		                <div class="form-group">
+		                    <label for="feedback">더 나은 서비스를 위해 의견을 남겨주세요.</label>
+		                    <textarea id="feedback" rows="5"></textarea>
+		                </div>
+		            </div>
+		
+		            <div class="info-box">
+		                <h2>정확한 본인확인을 위해 비밀번호를 다시 한 번 입력해 주세요.</h2>
+		                <div class="form-group">
+		                    <label for="userId">아이디</label>
+		                    <input type="text" id="userId" th:value="${#authentication.principal.email}" disabled>
+		                </div>
+		                <div class="form-group">
+		                    <label for="password">비밀번호</label>
+		                    <input type="password" id="password">
+		                </div>
+		            </div>
+		
+		            <button class="delete-button" onclick="accountDelete()">회원탈퇴</button>
+		        </section>
+		    </div>
+        </div>
+    </div>
+</main>
+</html>

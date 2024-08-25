@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bookbook.mapper.MypageUserMapper">
+	
+	<select id="findById" parameterType="long" resultType="com.project.bookbook.domain.dto.MypageUserDTO">
+		select * from user
+		where user_id = #{userId}
+	</select>
+	
+	<update id="updateId" parameterType="com.project.bookbook.domain.dto.accountUpdateDTO">
+		update user
+		set user_name = #{userName}, 
+			phone_number = #{phoneNumber}, 
+			postcode = #{postcode},
+			address = #{address},
+			extra_address = #{extraAddress},
+			detail_address = #{detailAddress}
+		where user_id = #{userId}
+	</update>
+	
+	<update id="changeStatus" parameterType="long">
+		update user
+		set status = 1
+		where user_id = #{userId}
+	</update>
+</mapper>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{views/commons/layout::layout(~{::head} ,~{::main} ) }">
+<head>
+<meta charset="UTF-8">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="/js/mainContent/bookList.js"></script>
+<script src="/js/mainContent/heartButton.js"></script>
+<script src="/js/mainContent/cartItemButton.js"></script>
+<link rel="stylesheet" href="/css/mainContent/bookList.css" />
+
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+<body>
+	<main class="main-container">
+		<aside class="category-sidebar">
+			<h2 class="sidebar-title">도서</h2>
+			<nav>
+				<ul class="category-list">
+					<li><a href="#" class="category-item" data-category="all">종합</a></li>
+					<li><a href="#" class="category-item" data-category="fiction">소설</a></li>
+					<li><a href="#" class="category-item" data-category="essay">시/에세이</a></li>
+					<li><a href="#" class="category-item" data-category="business">경제/경영</a></li>
+					<li><a href="#" class="category-item"
+						data-category="self-help">자기계발</a></li>
+					<li><a href="#" class="category-item"
+						data-category="humanities">인문</a></li>
+					<li><a href="#" class="category-item" data-category="history">역사/문화</a></li>
+					<li><a href="#" class="category-item" data-category="language">국어/외국어</a></li>
+					<li><a href="#" class="category-item" data-category="science">과학</a></li>
+					<li><a href="#" class="category-item" data-category="art">예술/대중문화</a></li>
+				</ul>
+			</nav>
+		</aside>
+		<div class="content">
+			<h1 class="content-title">도서</h1>
+			<nav>
+				<div class="selectAll">
+					<input type="checkbox" id="selectAllCheckbox"> <label
+						for="selectAllCheckbox">전체 선택</label>
+				</div>
+			</nav>
+			<section id="book-list" class="book-list">
+				<div class="bookInformation">
+					<ol>
+						<li th:each="book : ${books}">
+							<div>
+								<input type="checkbox" class="bookCheckbox">
+							</div>
+							<div class="bookImg">
+								<img th:alt="${book.title}" th:src="${book.image}"
+									name="thumbnail"> <span><a
+									th:href="@{'/detail/' + ${book.isbn}}">새창보기</a></span> <span
+									class="chang"><a th:href="@{'/detail/' + ${book.isbn}}">미리보기</a></span>
+							</div>
+							<div class="bookContent">
+								<h3>
+									<a th:href="@{|/detail/${book.isbn}|}" name="title"
+										th:text="${book.title}"></a>
+								</h3>
+								<h4>
+									<a th:href="@{|/detail/${book.isbn}|}" name="authors"
+										th:text="${book.author}"></a>
+								</h4>
+								<h5 name="price"
+									th:text="${book.discount != null ? #numbers.formatDecimal(book.discount, 0, 'COMMA', 0, 'POINT') + '원' : '가격 정보 없음'}"></h5>
+								<h6 name="content" th:text="${book.description}"></h6>
+							</div>
+							<div>
+								<p>당일배송</p>
+								<h5>
+									<strong>오늘 도착</strong>
+								</h5>
+							</div>
+							<div class="bookButton-container">
+								<button type="button" class="heart-button"
+									th:data-isbn="${book.isbn}">
+									<i class="far fa-heart"></i>
+								</button>
+								<form th:action="@{/api/books/cartItem}" method="post"
+									class="cart-form" onsubmit="return addToCartItems(this,event)">
+									<input type="hidden" name="isbn" th:value="${book.isbn}" />
+									<button type="submit" class="cart-button">장바구니</button>
+								</form>
+								<button class="buy-button">바로구매</button>
+							</div>
+						</li>
+					</ol>
+				</div>
+			</section>
+		</div>
+	</main>
+</body>
+</html>

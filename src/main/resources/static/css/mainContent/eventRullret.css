@@ -1,0 +1,201 @@
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'GmarketSansMedium', sans-serif;
+}
+
+.text {
+    text-align: center;
+    font-size: 16px;
+    margin: 0 auto;
+    color: #000;
+    position: relative;
+    top: 10px;
+}
+
+.backGC {
+    background-image: url("/img/cupon/roulette_bg.png");
+    width: 80%;
+    margin: 0 auto;
+    height: 1243px;
+    background-size: cover;
+    background-position: center;
+}
+
+#wrap {
+    text-align: center;
+    margin: 0 auto;
+    padding: 0 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+#wrap #gameContainer {
+    width: 508px;
+    height: 671px;
+    text-align: center;
+    position: relative;
+    margin: 0 auto;
+}
+
+#wrap #gameContainer .obj {
+    position: absolute;
+}
+
+#wrap #gameContainer .board_start {
+    padding: 10px;
+    line-height: 150px;
+    color: #fff;
+    background: #ff9040;
+    text-align: center;
+    vertical-align: middle;
+    font-weight: bold;
+    position: absolute;
+    left: 168px;
+    top: 590px;
+    z-index: 9;
+    width: 150px;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#wrap #gameContainer .board_start:hover {
+    background: #ff7020;
+}
+
+#wrap #gameContainer .board_start img {
+    width: 100%;
+    height: auto;
+}
+
+#wrap #gameContainer .board_bg {
+    width: 508px;
+    height: 508px;
+    top: 40px;
+    left: 0;
+    z-index: 2;
+}
+
+#wrap #gameContainer .board_bg img {
+    width: 100%;
+    height: auto;
+}
+
+#wrap #gameContainer .board_on {
+    width: 508px;
+    height: 508px;
+    top: 430px;
+    left: 0;
+    z-index: 3;
+    background-image: url('//img.babathe.com/upload/specialDisplay/htmlImage/2019/test/roulette_circle_bg.png');
+    background-size: 508px;
+}
+
+#wrap #gameContainer .board_on img {
+    position: absolute;
+    width: 125px;
+    height: 80px;
+}
+
+#wrap #gameContainer .board_on img:nth-child(1) { left: 37px; transform: rotate(-61deg); top: 129px; }
+#wrap #gameContainer .board_on img:nth-child(2) { left: 37px; transform: rotate(-120deg); top: 302px; }
+#wrap #gameContainer .board_on img:nth-child(3) { left: 193px; top: 388px; transform: rotate(-180deg); }
+#wrap #gameContainer .board_on img:nth-child(4) { left: 342px; top: 299px; transform: rotate(-237deg); }
+#wrap #gameContainer .board_on img:nth-child(5) { left: 346px; top: 123px; transform: rotate(-298deg); }
+#wrap #gameContainer .board_on img:nth-child(6) { left: 192px; top: 41px; transform: rotate(0deg); }
+
+#wrap #gameContainer .obj.board_arrow {
+    width: 90px;
+    height: 105px;
+    top: 0;
+    left: 195px;
+    z-index: 5;
+}
+
+#wrap #gameContainer .char1 { width: 259px; height: 246px; top: 400px; left: 90px; z-index: 1; }
+#wrap #gameContainer .char2 { width: 175px; height: 198px; top: 449px; left: 600px; z-index: 1; }
+#wrap #gameContainer .char3 { width: 112px; height: 108px; top: 540px; left: 550px; z-index: 3; }
+#wrap #gameContainer .txt1 { width: 420px; height: 30px; bottom: 20px; left: 260px; z-index: 3; }
+
+.popup {
+    display: none;
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 99999;
+    text-align: center;
+    background: #fff;
+    font-size: 20px;
+    color: #000;
+    box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    border-radius: 10px;
+}
+
+#fade {
+    display: none;
+    background: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+}
+
+#popup_gift, #popup_fail {
+    width: 475px;
+    max-width: 90%;
+    height: auto;
+    padding: 20px;
+    padding-top: 10px;
+}
+
+#popup_gift .lottery_present {
+    text-align: center;
+    white-space: pre-line;
+}
+
+#popup_gift .lottery_present img {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.popup .close {
+    display: inline-block;
+    text-align: right;
+    font-size:35px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    color: #f1f1f1;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+@media (max-width: 768px) {
+    .backGC {
+        width: 100%;
+        height: auto;
+    }
+
+    #wrap {
+        padding: 0 20px;
+    }
+
+    #wrap #gameContainer {
+        width: 100%;
+        height: auto;
+    }
+
+    /* 기타 반응형 스타일 조정 */
+}

@@ -1,0 +1,233 @@
+.box-section {
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+h3 {
+    margin-top: 0;
+    font-weight: normal;
+    font-weight: bold;
+}
+
+.input-field {
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+
+/* 배송지정보 */
+.shipment-info {
+  display: flex;
+  align-items: flex-start;
+}
+
+.shipment-info > p {
+  width: 95px;
+  margin-top: 10px;
+}
+
+.new-input-field {
+  width: 743px;
+  padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+.postcode-input {
+  width: 120px;
+}
+.address{
+    align-items: baseline;
+}
+.radio-group {
+    margin-bottom: 10px;
+}
+.radio-group label {
+    margin-right: 20px;
+}
+.information{
+    color: #666;
+    font-size: 13px;
+}
+.information > i{
+    color: #666;
+    font-size: 13px;
+    margin: 5px;
+}
+.postalcode{
+	width:120px;
+}
+
+/* 주문상품 */
+.product {
+    display: flex;
+    align-items: center;
+}
+.product-details{
+    width: 100%;
+}
+.product-details h4 {
+    margin: 0;
+    font-size: 18px;
+    text-align: start;
+}
+.left-section td {
+	text-align: left;
+	min-width: 80px;
+}
+tr > td:nth-child(1){
+	display: flex;
+}
+td > p{
+    font-size: 14px;
+    text-align: start;
+}
+.book-detail{
+	padding: 30px;
+	width: 350px;
+}
+
+/* 쿠폰 */
+#selectedCoupon {
+    margin: 20px;
+    font-size: 16px;
+}
+.coupon_number{
+	font-size: 16px;
+	margin-left: 5px;
+}
+
+/* 쿠폰 모달창 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fff;
+    margin: 7% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 5px;
+    position: relative;
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+}
+
+.coupon-text{
+	margin-bottom: 40px;
+}
+.coupon-list {
+    margin-top: 20px;
+}
+
+.coupon-item {
+    display: block;
+    margin: 5px 0;
+    cursor: pointer;
+    
+    background-color: #fff;
+    border: 1px solid var(--grey);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    text-align: left;
+    position: relative;
+}
+
+.description {
+    font-size: 14px;
+    color: #666;
+}
+
+.dates {
+    font-size: 12px;
+    color: #999;
+    margin-top: 10px;
+}
+
+.days-left {
+    font-weight: bold;
+    color: #ff5722;
+    margin-left: 10px;
+    margin-top: 1.5px;
+}
+
+.coupon-item input {
+    margin-right: 10px;
+}
+
+.coupon-item:hover {
+    background-color: #f1f1f1;
+}
+
+.select-button {
+    margin-top: 40px;
+    padding: 10px 20px;
+    background-color: var(--main-orange);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.select-button:hover {
+    background-color: var(--light-orange);
+}
+
+
+.grey-button {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    display: block;
+}
+
+.grey-button:hover {
+    background-color: #f0f0f0;
+}
+
+
+.payment-summary {
+	height: 330px;
+}
+.side-btn{
+	margin-bottom: 10px;
+}
+.expandable {
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+}

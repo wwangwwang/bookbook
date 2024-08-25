@@ -1,0 +1,101 @@
+@charset "UTF-8";
+
+body {
+	font-family: Arial, sans-serif;
+	background-color: #f9f9f9;
+	margin: 0;
+	padding: 0;
+}
+
+.container {
+	width: 60%;
+	margin: 20px auto;
+	background-color: white;
+	border: 1px solid #ddd;
+	padding: 20px;
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container h1 {
+	padding: 20px;
+}
+
+.box {
+	border: 1px solid #ddd;
+	margin: 20px;
+}
+
+.header {
+	padding-bottom: 10px;
+	margin: 30px;
+}
+
+.profile-header {
+	display: flex;
+	align-items: center;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+}
+
+.info-pic {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+	background-color: #888;
+	margin: 0 20px;
+}
+
+.username {
+	font-weight: bold;
+	margin-right: 5px;
+}
+
+.id {
+	background-color: #f0f0f0;
+	padding: 2px 5px;
+	border-radius: 3px;
+	margin-right: 10px;
+}
+
+.subscription {
+	color: green;
+	margin-right: 10px;
+}
+
+.line {
+	border-bottom: 1px solid #ccc;
+	padding: 20px;
+	margin: 10px;
+}
+h3 {
+	margin: 20px;
+}
+
+.timestamp {
+	color: #999;
+}
+
+.memo {
+	font-size: 16px;
+	margin: 50px;
+}
+
+.content {
+	border: 1px solid #ccc;
+	padding:20px;
+	margin: 20px;
+}
+
+.btn {
+	display:flex;
+	justify-content: flex-end;
+	margin: 30px;
+}
+
+button {
+	background-color: white;
+	border: 1px solid #a9a9a9;
+	padding: 7px 15px;
+	border-radius: 3px;
+}

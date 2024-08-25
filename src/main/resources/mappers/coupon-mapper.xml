@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bookbook.mapper.CouponMapper">
+	
+	<select id="findAll" parameterType="long" resultType="com.project.bookbook.domain.dto.CouponListDTO">
+		SELECT c.*
+		FROM coupon c
+		JOIN user_coupon uc ON c.coupon_num = uc.coupon_num
+		WHERE uc.user_id = #{userId} and uc.status = 0;
+	</select>
+	
+	<select id="findAllStatus1" parameterType="long" resultType="com.project.bookbook.domain.dto.CouponListDTO">
+		SELECT c.*
+		FROM coupon c
+		JOIN user_coupon uc ON c.coupon_num = uc.coupon_num
+		WHERE uc.user_id = #{userId} and uc.status = 1;
+	</select>
+	
+	<select id="checkCoupon" parameterType="long" resultType="com.project.bookbook.domain.dto.CouponListDTO">
+		select * from coupon
+		where coupon_num = #{couponNum}
+	</select>
+	
+	<insert id="save" parameterType="long">
+		insert into user_coupon(coupon_num, user_id)
+		values(#{couponNum}, #{userId})
+	</insert>
+	
+	<select id="checkDuplicateCoupon" parameterType="map" resultType="com.project.bookbook.domain.dto.UserCouponDTO">
+		select * from user_coupon
+		where coupon_num = #{couponNum} and user_id = #{userId}
+	</select>
+	
+	<select id="findByCouponNum" parameterType="long" resultType="int">
+		select coupon_rate from coupon
+		where coupon_num = #{couponNum}
+	</select>
+	
+	<update id="changeStatus" parameterType="map">
+		update user_coupon
+		set status = 1
+		where coupon_num = #{couponNum} and user_id = #{userId}
+	</update>
+	
+	<delete id="deleteByCouponNumAndUserId" parameterType="map">
+		delete from user_coupon
+		where coupon_num = #{couponNum} and user_id = #{userId}
+	</delete>
+	
+
+</mapper>

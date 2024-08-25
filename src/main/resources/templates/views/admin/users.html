@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/admin/commons.css">
+	<link rel="stylesheet" href="/css/admin/sidebar.css">
+	<script src="/js/admin/sidebar.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/admin/sidebar}" />
+		<div class="container">
+			<h1>고객 관리</h1>
+			<div class="search-box">
+				<div class="filters">
+					<div class="filter-section">
+						<label>고객검색</label>
+						<select>
+							<option>이름</option>
+							<option>ID</option>
+							<option>전화번호</option>
+							<option>이메일</option>
+						</select> <input type="text" placeholder="검색">
+					</div>
+					<div class="filter-section">
+						<label>가입날짜</label>
+						<input type="date" id="startDate"> ~ <input type="date" id="endDate">
+					</div>
+					<div class="filter-section">
+						<label>고객상태</label>
+						<input type="radio" name="payment" checked> 전체
+						<input type="radio" name="payment"> 활성화
+						<input type="radio" name="payment"> 정지 회원
+						<input type="radio" name="payment"> 탈퇴 회원
+					</div>
+					<div class="btns">
+						<button class="search-btn">검색</button>
+						<button>초기화</button>
+					</div>
+				</div>
+			</div>
+			<div class="inven-box">
+				<table class="order-table">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>이름</th>
+							<th>이메일</th>
+							<th>연락처</th>
+							<th>주소</th>
+							<th>참고항목</th>
+							<th>회원상태</th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="dto:${list}">
+							<td th:text="${dto.userId}"></td>
+							<td th:text= ${dto.userName}></td>
+							<td th:text="${dto.email}"></td>
+							<td th:text="${dto.phoneNumber}"></td>
+							<td th:text="${dto.postcode}"></td>
+							<td th:text="${dto.extraAddress}"></td>
+							<td th:text="${dto.status}"></td>
+							<td><a th:href="|/admin/users/detail/${dto.userId}|"><button>상세보기</button></a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/admin/write.css">
+	<link rel="stylesheet" href="/css/admin/sidebar.css">
+	<script src="/js/admin/sidebar.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/admin/sidebar}" />
+		<div class="container">
+			<h1>이벤트 등록</h1>
+			<div id="product-form">
+				<table>
+					<thead>
+						<tr>
+							<th colspan="4">기본 정보</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>이벤트 제목</th>
+							<td colspan="3">
+								<input type="text" id="product-name" name="product-name" placeholder="내용을 입력해주세요">
+								<span class="char-count">[0/100]</span>
+							</td>
+						</tr>
+						<tr>
+							<th>이벤트 기간</th>
+							<td colspan="3">
+								<div class="date-input-container">
+									<input type="date" id="event-start-date" name="event-start-date">
+									<span>~</span>
+									<input type="date" id="event-end-date" name="event-end-date">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<th>이벤트 상세 설명</th>
+							<td colspan="3">
+								<textarea id="summary-description" name="summary-description"></textarea>
+								
+							</td>
+						</tr>
+						<tr>
+							<th>이미지 업로드</th>
+							<td colspan="3">
+								<div>
+									<label class="btn-file">
+										<input type="file" id="itemFile" onchange="fileupload(this)"
+											style="display: none;">
+										<input type="hidden" name="bucketKey">
+										<input type="hidden" name="orgName">
+										<span>+</span>
+									</label>
+									<label class="btn-file">
+										<input type="file" id="itemFile" onchange="fileupload(this)"
+											style="display: none;">
+										<input type="hidden" name="bucketKey">
+										<input type="hidden" name="orgName">
+										<span>+</span>
+									</label>
+									<!--이미지가 추가되면 레이블태그가 추가되도록 js를 만드세요-->
+									<p class="file-guide">
+										<span>권장 크기 : 1000 X 1000(윈도 대상 750 X 1000), 300 X 300 이상</span><br>
+										<span>이미지 확대 기능 : 대표 이미지 기준 1000 X 1000 이상 이미지 등록 시, 확대 기능이 제공됩니다.</span><br>
+									</p>
+
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="btn-write">
+					<button>상품 등록</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

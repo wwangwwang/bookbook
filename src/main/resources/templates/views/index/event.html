@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	th:replace="~{views/commons/layout::layout(~{::head} ,~{::main} ) }">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이벤트 페이지 - 룰렛 게임</title>
+<head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<link rel="stylesheet" href="/css/mainContent/eventRullret.css" />
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+<script src="/js/mainContent/eventRullret.js"></script>
+
+</head>
+<body>
+	<main>
+		<div id="wrap">
+			<div class="backGC">
+				<div id="gameContainer">
+					<div class="board_start join">시작버튼</div>
+					<div class="board_on obj">
+						<img src="img/cupon/cupon1.png" alt="상품1"> <img
+							src="img/cupon/cupon2.png" alt="상품2"> <img
+							src="img/cupon/cupon3.png" alt="상품3"> <img
+							src="img/cupon/cupon4.png" alt="상품4"> <img
+							src="img/cupon/cupon5.png" alt="상품5"> <img
+							src="img/cupon/cupon6.png" alt="상품6">
+					</div>
+				</div>
+				<div class="text">"즉석 당첨! 룰렛을 돌려 특별한 혜택을 받아가세요!"</div>
+			</div>
+
+			<div id="popup_gift" class="popup">
+				<div class="popup-content">
+					<span id="closePopupBtn" class="close" data-coupon-id="">&times;</span>
+					<div class="lottery_present"></div>
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

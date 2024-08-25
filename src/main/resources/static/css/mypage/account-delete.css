@@ -1,0 +1,85 @@
+.header-buttons {
+    display: flex;
+}
+
+.header-button {
+    border: 1px solid var(--grey);
+    color: var(--black);
+    background-color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.info-section {
+    padding: 20px 0;
+}
+
+.info-section p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.info-box {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.info-box h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.info-box ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.info-box ul li {
+    list-style-type: disc;
+    margin-bottom: 5px;
+}
+
+.auth-button {
+	background-color: white;
+    border: 1px solid #d9d9d9;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 10px 0;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-top: 15px;
+    padding: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"],
+.form-group select,
+.form-group textarea {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.delete-button {
+    background-color: #FF9040;
+    color: white;
+    border: none;
+    padding: 15px 20px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+    margin-top: 20px;
+}

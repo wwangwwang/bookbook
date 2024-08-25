@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bookbook.mapper.AdminMapper">
+	<select id="findAllReviews"
+		resultType="com.project.bookbook.domain.dto.ReviewDTO">
+		SELECT r.review_num AS reviewNum,
+		u.user_name,
+		b.book_name,
+		b.author,
+		b.isbn,
+		r.review_content AS reviewContent,
+		r.rate,
+		r.review_date AS reviewDate,
+		r.recommend,
+		r.complaint,
+		r.actual_order AS actualOrder
+		FROM review r
+		JOIN user u ON r.user_id = u.user_id
+		JOIN book b On r.book_num = b.book_num
+		ORDER BY r.review_date DESC
+	</select>
+	<select id="findTop8Reviews"
+		resultType="com.project.bookbook.domain.dto.ReviewDTO">
+		SELECT
+		r.review_num,
+		u.user_name,
+		b.book_name,
+		b.author,
+		b.isbn,
+		r.review_content,
+		r.rate,
+		r.review_date,
+		COALESCE(r.recommend, 0) AS recommend,
+		COALESCE(r.complaint, 0) AS complaint,
+		COALESCE(r.actual_order, false) AS actual_order
+		FROM review r
+		JOIN user u ON r.user_id = u.user_id
+		JOIN book b ON r.book_num = b.book_num
+		ORDER BY r.review_date DESC
+		LIMIT 7
+	</select>
+	<!-- 삭제 쿼리 추가 -->
+	<delete id="deleteReview" parameterType="long">
+		DELETE FROM review WHERE review_num = #{reviewNum}
+	</delete>
+</mapper>

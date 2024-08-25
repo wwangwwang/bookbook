@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>출판사 회원가입</title>
+<link rel="stylesheet" href="/css/login/signup.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<meta name="_csrf" th:content="${_csrf.token}" />
+<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+</head>
+<script th:inline="javascript">
+	/*<![CDATA[*/
+	var errorMessage = /*[[${errorMessage}]]*/null;
+	if (errorMessage) {
+		alert(errorMessage);
+	}
+	/*]]>*/
+</script>
+<body>
+	<div class="main-signup">
+		<header>
+			<a href="/">
+				<div class="logo">
+					<img src="/img/Untitled_removebg_preview.png" class="image">
+				</div>
+			</a>
+		</header>
+
+		<section class="signup-wrap">
+			<form th:action="@{/signup/admin}" th:object="${combinedSellerDTO}"
+				method="post" enctype="multipart/form-data">
+				<input type="hidden" th:name="${_csrf.parameterName}"
+					th:value="${_csrf.token}" /> <input type="hidden"
+					th:field="*{email}" /> <input type="hidden" th:field="*{password}" />
+				<input type="hidden" th:field="*{userName}" /> <input type="hidden"
+					th:field="*{birthDate}" /> <input type="hidden"
+					th:field="*{gender}" /> <input type="hidden" th:field="*{userRRN}" />
+				<input type="hidden" th:field="*{phoneNumber}" /> <input
+					type="hidden" th:field="*{postcode}" /> <input type="hidden"
+					th:field="*{address}" /> <input type="hidden"
+					th:field="*{extraAddress}" /> <input type="hidden"
+					th:field="*{detailAddress}" />
+
+				<h3>출판사 이름</h3>
+				<div class="signup-input">
+					<input id="publisher-name" type="text" th:field="*{shopName}"
+						placeholder="출판사 이름을 입력하세요" required
+						pattern="^[가-힣a-zA-Z0-9\s]{2,50}$"
+						title="출판사 이름은 2~50자의 한글, 영문, 숫자만 사용할 수 있습니다.">
+				</div>
+
+				<h3>출판사 번호</h3>
+				<div class="signup-input">
+					<input id="publisher-number" type="text" th:field="*{telNum}"
+						placeholder="출판사 번호를 입력하세요" required pattern="^[0-9]{2,20}$"
+						title="출판사 번호는 숫자만 2~20자 이내로 입력할 수 있습니다.">
+				</div>
+
+				<h3>사업자 번호</h3>
+				<div class="signup-input">
+					<input id="business-number" type="text" th:field="*{businessNum}"
+						placeholder="***-**-*****" required pattern="^\d{3}-\d{2}-\d{5}$"
+						title="사업자 번호 형식은 123-45-67890 입니다.">
+				</div>
+
+				<h3>사업자 등록증 (PNG 파일만 가능)</h3>
+				<div class="signup-input">
+					<input id="business-registration" type="file"
+						name="businessRegFile" accept="image/png"
+						onchange="uploadBusinessReg(this)" required>
+					<div id="upload-status"></div>
+				</div>
+				<input type="hidden" id="businessRegImageId"
+					th:field="*{businessRegImageId}">
+
+				<h3>계좌 은행 및 계좌 정보</h3>
+				<div class="signup-input">
+					<select id="account-bank" th:field="*{bank}" required>
+						<option value="">은행을 선택하세요</option>
+						<option value="KB국민은행">KB국민은행</option>
+						<option value="신한은행">신한은행</option>
+						<option value="우리은행">우리은행</option>
+						<option value="하나은행">하나은행</option>
+						<option value="농협은행">농협은행</option>
+						<option value="SC제일은행">SC제일은행</option>
+						<option value="씨티은행">씨티은행</option>
+						<option value="카카오뱅크">카카오뱅크</option>
+						<option value="토스뱅크">토스뱅크</option>
+						<option value="케이뱅크">케이뱅크</option>
+					</select>
+				</div>
+				<div class="signup-input">
+					<input id="account-number" type="text" th:field="*{account}"
+						placeholder="계좌 번호를 입력하세요(- 포함)" required
+						pattern="^\d{2,3}-\d{3,6}-\d{1,7}$"
+						title="계좌 번호는 은행 코드(2~3자리) - 계좌번호(3~6자리) - 숫자(1~7자리) 형식으로 입력하세요.">
+				</div>
+
+				<div class="signup-input">
+					<input id="account-name" type="text" th:field="*{accountHolder}"
+						placeholder="계좌 소유자를 입력하세요" required pattern="^[가-힣]{2,20}$"
+						title="계좌 소유자는 한글로 2~20자 이내로 입력할 수 있습니다.">
+				</div>
+
+				<div>
+					<div class="signup-btn-wrap">
+						<button id="signup-btn" type="submit"
+							onclick="return validatePublisherForm();">가입하기</button>
+					</div>
+				</div>
+			</form>
+		</section>
+	</div>
+	<script src="/js/login/signup-admin.js"></script>
+</body>
+</html>

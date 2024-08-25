@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="layout(pHead,pMain)">
+<head>
+	<meta charset="UTF-8">
+	<meta name="_csrf" th:content="${_csrf.token}" />
+	<meta name="_csrf_header" th:content="${_csrf.headerName}" />
+	<link rel="stylesheet" href="/css/common/header.css"/>
+	<link rel="stylesheet" href="/css/common/footer.css"/>
+	<link rel="stylesheet" href="/css/common/reset.css"/>
+	<script src="https://kit.fontawesome.com/bcc4a0fa81.js" crossorigin="anonymous"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+	<script src="/js/mainContent/menuButton.js"></script>
+	
+	
+	<!-- 챗봇  -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+	<link rel="stylesheet" href="/css/chatbot/bot.css"/>
+  	<script src="/js/chatbot/bot.js"></script>
+	<!-- //// -->
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.5.1/sockjs.min.js"></script>
+	
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@4.3.0/fonts/remixicon.css"/>
+    
+	<!--각 html 마다 적용-->
+	<th:block th:insert="${pHead}"/>
+</head>
+<body>
+	<header th:replace="~{views/commons/common :: top}"></header>
+	<main th:replace="${pMain}">메인태그가 치환됩니다.</main>
+	<!-- ///////// -->
+	<!--  챗봇 영역  -->
+	<!-- ///////// -->
+	<section>
+		    <!-- 챗봇 이미지 -->
+		    <img class="animate__animated animate__pulse animate__slower animate__infinite" id="chat-icon" src="/img/bot/botlogo.png" alt="Chatbot Icon" />
+		    <!-- 챗봇 창 -->
+		    <div id="bot-container">
+		    	<div id="bot-top">
+			        <button id="close-button"><i class="ri-close-line"></i></button> <!-- 닫기 버튼 -->
+		    	</div>
+		        <div id="chat-content"></div>
+		        <div id="input-container">
+		            <input type="text" id="question" placeholder="질문을 입력하세요." />
+		            <button id="send-button">보내기</button>
+		        </div>
+		    </div>
+			
+		
+	</section>
+	<!-- ///////// -->
+	<!-- ///////// -->
+	<!-- ///////// -->
+	<header th:replace="~{views/commons/common :: bottom}"></header>
+</body>
+</html>

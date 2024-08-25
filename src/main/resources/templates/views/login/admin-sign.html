@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>출판사 관리</title>
+    <link rel="stylesheet" href="/css/admin/commons.css">
+    <link rel="stylesheet" href="/css/admin/sidebar.css">
+    <script src="/js/admin/sidebar.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        function confirmAction(action, id) {
+            var message = action === 'approve' ? '이 출판사를 승인하시겠습니까?' : '이 출판사를 거부하시겠습니까?';
+            if (confirm(message)) {
+                document.getElementById(action + '-form-' + id).submit();
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <div style="display: flex;">
+        <th:block th:insert="~{views/admin/sidebar}" />
+        <div class="container">
+            <h1>출판사 회원 등록</h1>
+            <div th:if="${message}" th:text="${message}" style="color: green;"></div>
+            <div th:if="${error}" th:text="${error}" style="color: red;"></div>
+            <div class="inven-box">
+                <table class="order-table">
+                    <thead>
+                        <tr>
+                            <th>출판사 이름</th>
+                            <th>출판사 번호</th>
+                            <th>사업자</th>
+                            <th>사업자 번호</th>
+                            <th>승인 요청</th>
+                        </tr>
+                    </thead>
+                   <tbody>
+                        <tr th:each="seller : ${pendingSellers}">
+                            <td th:text="${seller.shopName}"></td>
+                            <td th:text="${seller.telNum}"></td>
+                            <td th:text="${seller.userName}"></td>
+                            <td th:text="${seller.businessNum}"></td>
+
+                            <td>
+                                <form th:id="'approve-form-' + ${seller.sellerId}" th:action="@{/approve-seller/{sellerId}(sellerId=${seller.sellerId})}" method="post" style="display: inline;">
+                                    <button type="button" class="btn btn-approve" th:onclick="'confirmAction(\'approve\', ' + ${seller.sellerId} + ')'">승인</button>
+                                </form>
+                                <form th:id="'reject-form-' + ${seller.sellerId}" th:action="@{/reject-seller/{sellerId}(sellerId=${seller.sellerId})}" method="post" style="display: inline;">
+                                    <button type="button" class="btn btn-reject" th:onclick="'confirmAction(\'reject\', ' + ${seller.sellerId} + ')'">거부</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

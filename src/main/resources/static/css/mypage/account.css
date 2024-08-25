@@ -1,0 +1,86 @@
+.head .logout {
+    border: 1px solid var(--grey);
+    background-color: white;
+    color: var(--black);
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.info-section {
+    padding: 20px 0;
+}
+
+.info-box {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.info-box p {
+    margin: 0 0 10px;
+}
+
+.update-button {
+    background-color: var(--brown);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.info-form .form-group {
+    display: flex;
+    align-items: baseline;
+    margin-bottom: 15px;
+}
+
+.info-form label {
+    width: 150px;
+    font-weight: bold;
+}
+
+.info-form input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.change-password, .find-postalcode,
+.edit-phone, .edit-email {
+    border: 1px solid var(--grey);
+    color: var(--black);
+    background-color: white;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+.find-postalcode{
+	margin-right: 10px;
+}
+
+.info-form .postalcode {
+    width: 80px !important;
+}
+
+.address {
+    flex: 1;
+    margin-bottom: 15px;
+    width: 667px;
+}
+
+.address-container{
+	flex: 1;
+}
+
+.change-userinfo{
+	background-color: var(--main-orange);
+	color: white;
+	width: 100%;
+	border:0;
+	font-size: 18px;
+    margin-top: 20px;
+    padding: 15px 20px;
+    cursor: pointer;
+}

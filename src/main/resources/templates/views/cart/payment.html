@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+th:replace="~{views/commons/layout::layout(~{::head}, ~{::main})}">
+<head>
+	<link rel="stylesheet" href="/css/cart/cart-list.css">
+	<link rel="stylesheet" href="/css/cart/payment.css">
+	<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+    <script src="/js/cart/payment.js"></script>
+</head>
+<main>
+	<div>
+        <h1>주문/결제</h1>
+        <div class="progress-bar">
+            <div class="circle">
+            	<i class="fa-solid fa-cart-shopping" aria-hidden="true"></i>
+                <div class="label">장바구니</div>
+            </div>
+            <div class="line"></div>
+            <div class="circle active">
+            	<i class="fa-regular fa-credit-card"></i>
+                <div class="label">주문/결제</div>
+            </div>
+            <div class="line"></div>
+            <div class="circle">
+            	<i class="fa-solid fa-clipboard-check"></i>
+                <div class="label">주문완료</div>
+            </div>
+        </div>
+        <div class="flex j-center">
+	        <div class="left-section">
+	            <div class="box-section">
+                    <div class="flex between address">
+                        <h3>배송 정보</h3>
+                        <button class="grey-button">배송지 수정</button>
+                    </div>
+                    <div class="shipment-info">
+	                    <p>이름</p>
+	                    <input type="text" id="postalcode" th:value="${user.userName}" class="new-input-field" disabled>
+                    </div>
+                    <div class="shipment-info">
+	                    <p>전화번호</p>
+	                    <input type="text" id="postalcode" th:value="${user.phoneNumber}" class="new-input-field" disabled>
+                    </div>
+                    <div class="shipment-info">
+                    	<p>우편번호</p>
+	                    <input type="text" id="postalcode" th:value="${user.postcode}" class="postalcode new-input-field" disabled>
+                    </div>
+                    <div class="shipment-info">
+	                    <p>주소</p>
+	                    <div class="address-wrapper">
+		                    <input type="text" id="address1" th:value="${user.address}" class="new-input-field" disabled><br>
+		                    <input type="text" id="address2" th:value="${user.detailAddress}" class="new-input-field" disabled>
+	                    </div>
+                    </div>
+                </div>
+
+                <div class="box-section">
+                    <h3>공동현관 출입방법</h3>
+                    <div class="radio-group">
+                        <input type="radio" name="entry" id="password" checked>
+                        <label for="password">공동현관 비밀번호</label>
+                        <input type="radio" name="entry" id="free">
+                        <label for="free">자유출입 가능</label>
+                    </div>
+                    <input type="text" class="input-field" placeholder="정확한 공동현관 출입번호(비밀번호)를 입력해 주세요.">
+                    <p class="information"><i class="fa-solid fa-circle-info"></i> 공동현관 출입방법 정보가 정확하지 않을 경우, 배송 시 공동현관 앞에 배송되거나 반송될 수 있습니다.</p>
+                </div>
+
+                <div class="box-section">
+                    <h3>주문상품 <span th:text="|총 ${#lists.size(orderBooks)}개|">총 1개</span></h3>
+                    <div class="product">
+                        <table class="product-details">
+                            <tbody>
+                                <tr th:each="orderBook:${orderBooks}"
+                                	th:with="itemAmount=${orderBook.discount * orderBook.orderCnt}">
+                                    <td>
+                                        <img th:src="${orderBook.bookImg}" class="book-cover-img">
+                                        <div class="book-detail">
+	                                        <h4 th:text="${orderBook.bookName}">해리포터와 마법사의 돌 1</h4>
+	                                        <p th:text="${orderBook.author}">J.K 롤링 저 / 강동혁 역</p>
+                                        </div>
+                                    </td>
+                                    <td th:text="|${orderBook.orderCnt}개|">1개</td>
+                                    <td th:text="|${#numbers.formatDecimal(itemAmount, 0, 'COMMA', 0, 'NONE')}원|">17,000원</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="box-section">
+                    <h3>할인쿠폰</h3>
+                    <p class="coupon_number" th:text="|보유쿠폰 : ${#lists.size(coupons)}장|">보유쿠폰 : 0장</p>
+                    <div class="flex">
+	                    <button class="grey-button" onclick="openModal()">쿠폰 조회/선택</button>
+	        			<p id="selectedCoupon">쿠폰이 선택되지 않았습니다.</p>
+        			</div>
+                </div>
+                
+                
+            </div>
+            
+            <!-- 쿠폰 모달창 -->
+		    <div id="couponModal" class="modal">
+		        <div class="modal-content">
+		            <span class="close" onclick="closeModal()">&times;</span>
+		            <h2 class="coupon-text">쿠폰 조회/선택</h2>
+		            <div class="coupon-list" th:each="coupon : ${coupons}">
+		                <label class="coupon-item">
+		                    <input type="radio" name="coupon" th:value="${coupon.couponName}">
+		                    <input type="hidden" th:value="${coupon.couponNum}" id="couponNum">
+		                    <input type="hidden" th:value="${coupon.couponRate}" id="couponRate">
+		                    <b th:text="|${coupon.couponName}쿠폰|"></b>
+		                    <div class="dates flex">
+			                    <div class="description" th:text="${coupon.couponDetail}">어린이 과학동아(2024년 8월 1일자)(15호)<br>1000원 할인쿠폰</div>
+				            	<span class="days-left" th:text="|D-${coupon.remainingDays()}|" >D-25</span>
+				            </div>
+		                </label>
+		            </div>
+		            <button class="select-button" onclick="selectCoupon()">쿠폰 선택</button>
+		        </div>
+		    </div>
+	        
+	        <div class="payment-summary">
+			    <p><span>상품 금액</span> <span class="price all-price">0 원</span></p>
+			    <p>
+			    	<span>배송비</span> 
+			    	<span class="price" th:unless="${#lists.isEmpty(orderBooks)}">3000 원</span>
+			    	<span class="price" th:if="${#lists.isEmpty(orderBooks)}">0 원</span>
+			    </p>
+			    <p><span>상품 할인</span> <span class="price">- 0 원</span></p>
+			    <p>
+			    	<span>쿠폰 할인</span> 
+			    	<span class="price" id="selectedCouponRate">- 0 원</span></p>
+			    <hr>
+			    <p>최종 결제 금액 <span class="final-amount">0 원</span></p>
+			    
+			    <!-- input hidden으로 넘기는 값 -->
+			    <input type="hidden" th:value="${#authentication.principal.name}" id="userName">
+			    <input type="hidden" th:value="${#authentication.principal.email}" id="email">
+			    <input type="hidden" th:value="${#authentication.principal.phoneNumber}" id="phoneNumber">
+			    <input type="hidden" th:value="${merchantUid}" id="merchantUid">
+            	<button class="side-btn btn-active" onclick="requestPay()">결제하기</button>
+            	
+                <p class="expandable">
+                	<span>주문 상품 정보 동의</span>
+                	<i class="fa-solid fa-caret-down"></i>
+                </p>
+                <p class="expandable">
+                	<span>개인정보 수집 및 이용동의</span>
+                	<i class="fa-solid fa-caret-down"></i>
+                </p>
+			</div>
+	    </div>
+    </div>
+</main>
+</html>

@@ -1,0 +1,19 @@
+<div class="box">
+	<div class="header">
+		<h2 th:text="${qna.title}">안녕하세요</h2>
+		<div class="profile-header">
+			<div class="info-pic">
+			</div>
+			<div class="user-details">
+				<span th:text="${qna.user}" class="username">이유진</span>
+				<span th:if="${qna.status==1}" class="status-finish">답변완료</span>
+				<span th:if="${qna.status==0}" class="status">답변대기</span>
+				<span th:text="${qna.user}" class="subscription">yujin@naver.com</span>
+				<span th:text="${qna.date.toLocalDate()}" class="timestamp"></span>
+			</div>
+		</div>
+	</div>
+	<div class="memo">
+		<p th:text="${qna.content}">책이 너무 비싸요 값 좀 내려주세요</p>
+	</div>
+</div>

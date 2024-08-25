@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.bookbook.mapper.CartMapper">
+	
+	<select id="findAllCartDetail" parameterType="long" resultType="com.project.bookbook.domain.dto.CartDetailDTO">
+		SELECT 
+		    cd.cart_detail_num,
+		    cd.cart_cnt,
+		    cd.book_num,
+		    b.book_name,
+		    b.book_img,
+		    b.author,
+		    b.discount,
+		    b.stock
+		FROM
+		    cart c
+		JOIN 
+		    cart_detail cd ON c.cart_num = cd.cart_num
+		JOIN 
+		    book b ON cd.book_num = b.book_num
+		WHERE
+		    c.user_id = #{userId};
+	</select>
+	
+	<delete id="deleteCartDetail" parameterType="long">
+		delete from cart_detail
+		where cart_detail_num = #{cartDetailNum};
+	</delete>
+	
+	<!-- CartDetailNums 리스트로 장바구니 상세 정보 가져오기 -->
+	<select id="selectCartDetailsByIds" parameterType="java.util.List" resultType="com.project.bookbook.domain.dto.CartBookCntDTO">
+	    SELECT book_num, cart_cnt
+	    FROM cart_detail 
+	    WHERE cart_detail_num IN 
+	    <foreach item="cartDetailNum" collection="list" open="(" separator="," close=")">
+	        #{cartDetailNum}
+	    </foreach>
+	</select>
+	
+	<select id="findCartNum" parameterType="long" resultType="long">
+		select cart_num from cart
+		where user_id = #{userId}
+	</select>
+	
+	<delete id="deleteAllCart" parameterType="long">
+		delete from cart_detail
+		where cart_num = #{cartNum}
+	</delete>
+	
+	<update id="updateCartItemQuantity" parameterType="com.project.bookbook.domain.dto.UpdateCartDTO">
+		update cart_detail
+		set cart_cnt = #{cartCnt}
+		where cart_detail_num = #{cartDetailNum}
+	</update>
+	
+</mapper>

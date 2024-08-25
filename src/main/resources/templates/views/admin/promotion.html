@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" href="/css/admin/commons.css">
+	<link rel="stylesheet" href="/css/admin/sidebar.css">
+	<script src="/js/admin/sidebar.js"></script>
+	<script src="/js/admin/commons.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/admin/sidebar}" />
+		<div class="container">
+			<h1>프로모션 및 쿠폰</h1>
+			<div class="search-box">
+				<div class="filter-section">
+
+					<label>검색</label>
+
+					<input type="text" placeholder="검색">
+				</div>
+
+				<div class="filters">
+					<div class="filter-section">
+						<label>진행상태</label>
+						<input type="radio" name="status" checked> 전체
+						<input type="radio" name="status"> 준비중
+						<input type="radio" name="status"> 진행중
+						<input type="radio" name="status"> 종료
+					</div>
+					<div class="filter-section">
+						<label>등록일자</label>
+						<input type="date" id="startDate"> ~ <input type="date" id="endDate">
+					</div>
+					<div class="btns">
+						<button class="search-btn">검색</button>
+						<button>초기화</button>
+					</div>
+				</div>
+			</div>
+			<div class="inven-box">
+				<button>삭제</button>
+				<button>비활성화</button>
+				<table class="order-table">
+					<thead>
+						<tr>
+							<th><input type="checkbox" id="select-item"></th>
+							<th>등록번호</th>
+							<th>제목</th>
+							<th>등록일자</th>
+							<th>진행기간</th>
+							<th>지급방법</th>
+							<th>상세보기</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td><input type="checkbox" class="select-item"></td>
+							<td>1</td>
+							<td>책을 공짜로 얻는 법</td>
+							<td>-</td>
+							<td>-</td>
+							<td>이유진</td>
+							<td><a href="#">보기</a></td>
+						</tr>
+
+				</table>
+				<div id="pagination" class="pagination-container"></div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

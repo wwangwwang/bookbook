@@ -1,0 +1,69 @@
+.tabs {
+	display: flex;
+	margin-top: 35px;
+}
+
+.tab {
+	background-color: var(--light-grey);
+	border: 1px solid var(--grey);
+	padding: 10px 20px;
+	cursor: pointer;
+	flex: 1;
+	text-align: center;
+}
+
+.tab.active {
+	background-color: #fff;
+	border-top: 2px solid #000;
+	border-bottom: 2px solid #fff;
+}
+
+.content {
+	padding: 20px 0;
+}
+
+.tabcontent {
+	display: none;
+}
+
+.tabcontent p {
+	margin: 10px 0;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th {
+	border-top: 1px solid var(--grey);
+	border-bottom: 1px solid var(--grey);
+}
+
+th, td {
+	padding: 10px;
+	text-align: left;
+}
+th:nth-child(1){
+	width: 480px;
+}
+
+
+.status{
+	color: var(--main-orange);
+}
+.status-finish {
+	color: green;
+}
+
+
+.no-orders-div{
+	display: flex;
+    justify-content: center;
+    height: 400px;
+    align-items: center;
+}
+
+.no-orders{
+	font-size: 15px;
+}

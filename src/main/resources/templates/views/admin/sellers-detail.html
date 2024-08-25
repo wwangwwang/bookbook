@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>출판사 상세 정보</title>
+<link rel="stylesheet" href="/css/admin/detail.css">
+<link rel="stylesheet" href="/css/admin/commons.css">
+<link rel="stylesheet" href="/css/admin/sidebar.css">
+
+<script th:inline="javascript">
+	document.addEventListener('DOMContentLoaded', function() {
+		var modal = document.getElementById("businessRegModal");
+		var btn = document.getElementById("showBusinessRegBtn");
+		var span = document.getElementsByClassName("close")[0];
+		var img = document.getElementById("businessRegImage");
+
+		if (btn) {
+			btn.addEventListener('click', function() {
+				modal.style.display = "block";
+				img.src = /*[[${seller.businessReg}]]*/'';
+			});
+		}
+
+		if (span) {
+			span.addEventListener('click', function() {
+				modal.style.display = "none";
+			});
+		}
+
+		window.addEventListener('click', function(event) {
+			if (event.target == modal) {
+				modal.style.display = "none";
+			}
+		});
+	});
+</script>
+<script th:inline="javascript">
+	function deleteSeller() {
+		if (confirm('정말로 이 계정을 삭제하시겠습니까? 이 작업은 되돌릴 수 없습니다.')) {
+			document.getElementById('deleteForm').submit();
+		}
+	}
+</script>
+</head>
+
+<body>
+	<div style="display: flex;">
+		<th:block th:insert="~{views/admin/sidebar}" />
+		<div class="container">
+			<h1>출판사 상세 정보</h1>
+			<div class="profile-container">
+				<div class="profile-header">
+					<div class="profile-details">
+						<h2 th:text="${seller.shopName}">출판사 이름</h2>
+					</div>
+				</div>
+				<div class="selection-info">
+					<h2>출판사 정보</h2>
+					<div class="info-item">
+						<label>출판사 번호</label>
+						<p th:text="${seller.telNum}"></p>
+					</div>
+					<div class="info-item">
+						<label>사업자 등록번호</label>
+						<p th:text="${seller.businessNum}"></p>
+					</div>
+					<div class="info-item">
+						<label>은행</label>
+						<p th:text="${seller.bank}"></p>
+					</div>
+					<div class="info-item">
+						<label>계좌번호</label>
+						<p th:text="${seller.account}"></p>
+					</div>
+					<div class="info-item">
+						<label>예금주</label>
+						<p th:text="${seller.accountHolder}"></p>
+					</div>
+					<div class="info-item">
+						<label>승인 상태</label>
+						<p th:text="${seller.approvalStatus}"></p>
+					</div>
+					<div class="info-item">
+						<label>사업자 등록증</label>
+						<button id="showBusinessRegBtn"
+							th:if="${seller.businessReg != null}">사업자 등록증 보기</button>
+						<p th:if="${seller.businessReg == null}">등록된 이미지가 없습니다.</p>
+					</div>
+
+					<h2>담당자 정보</h2>
+					<div class="info-item">
+						<label>이름</label>
+						<p th:text="${seller.userName}"></p>
+					</div>
+					<div class="info-item">
+						<label>주민등록번호</label>
+						<p th:text="${seller.userRRN}"></p>
+					</div>
+					<div class="info-item">
+						<label>성별</label>
+						<p th:text="${seller.gender}"></p>
+					</div>
+					<div class="info-item">
+						<label>이메일</label>
+						<p th:text="${seller.email}"></p>
+					</div>
+					<div class="info-item">
+						<label>휴대전화</label>
+						<p th:text="${seller.phoneNumber}"></p>
+					</div>
+					<div class="info-item">
+						<label>생년월일</label>
+						<p th:text="${seller.birthDate}"></p>
+					</div>
+					<div class="info-item">
+						<label>주소</label>
+						<p
+							th:text="${seller.address + ' ' + seller.detailAddress + ' ' + seller.extraAddress}"></p>
+					</div>
+				</div>
+				<div class="account-delete">
+					<button class="delete-account-button" onclick="deleteSeller()">계정
+						삭제</button>
+				</div>
+
+				<form id="deleteForm"
+					th:action="@{/admin/sellers/delete/{id}(id=${seller.sellerId})}"
+					method="post" style="display: none;">
+					<input type="hidden" th:name="${_csrf.parameterName}"
+						th:value="${_csrf.token}" />
+				</form>
+
+			</div>
+		</div>
+	</div>
+	</div>
+
+	<div id="businessRegModal" class="modal">
+		<div class="modal-content">
+			<span class="close">&times;</span> <img id="businessRegImage"
+				alt="사업자 등록증" style="width: 100%;">
+		</div>
+	</div>
+
+	<script src="/js/admin/sidebar.js"></script>
+</body>
+
+</html>

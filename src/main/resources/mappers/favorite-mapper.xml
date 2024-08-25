@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.project.bookbook.mapper.FavoriteMapper">
+
+	<select id="findByUser" parameterType="long" resultType="com.project.bookbook.domain.dto.FavoriteListDTO">
+		SELECT b.*
+	    FROM book b
+	    JOIN wish w ON b.book_num = w.book_num
+	    WHERE w.user_id = #{userId}
+	</select>
+	
+	<delete id="deleteFavorite" parameterType="map">
+		delete from wish
+		where user_id = #{userId} and book_num = #{bookNum}
+	</delete>
+	
+</mapper>
